@@ -7,7 +7,8 @@ export async function POST(req: Request, res: Response) {
             headers : {
                 "Content-Type": "application/json",
             },
-            body : JSON.stringify(formData)
+            body : JSON.stringify(formData),
+            credentials : 'same-origin'
         });
         const data = await res.json();
         return NextResponse.json(data)

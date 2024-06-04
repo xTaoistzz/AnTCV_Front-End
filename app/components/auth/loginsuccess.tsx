@@ -16,7 +16,7 @@ export default function SuccessDialog({ isOpen, onClose }: SuccessDialogProps) {
         <div className="font-extrabold text-5xl">Success</div>
         <div className="font-bold text-xl">{successMessage}</div>
         <div className="space-x-4">
-          <button onClick={() => router.push('/project')} className="bg-gray-300 p-2 w-28">Close</button> 
+          <button onClick={() => router.push('/')} className="bg-gray-300 p-2 w-28">Close</button> 
         </div>
         
       </Modal>            
