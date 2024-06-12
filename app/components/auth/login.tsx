@@ -1,7 +1,6 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import SuccessDialog from "./loginsuccess";
-import Router, { useRouter } from "next/router";
 
 export default function LoginA() {
   const [username, setUsername] = useState("");
@@ -21,13 +20,14 @@ const handleCloseSuccess = () => {
     e.preventDefault();
     const formData = { username, password };
     try {
-      const res = await fetch("../../api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+        const res = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            credentials: 'include',
+          });
       const data = await res.json();
       console.log(data);
       if (data.type === "failed") {
@@ -40,7 +40,7 @@ const handleCloseSuccess = () => {
     }
   };
   return (
-    <div className="flex w-full mt-10 justify-center">
+    <div className="flex w-full justify-center">
       <div className=" p-10 border-2 border-black rounded-lg ">
         <div className="text-lg font-bold mb-4 text-center">
           Sign-In to AnTCV

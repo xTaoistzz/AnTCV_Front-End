@@ -43,7 +43,7 @@ const handleCloseSuccess = () => {
   };
 
   return (
-    <div className="flex w-full mt-10 justify-center">
+    <div className="flex w-full justify-center">
       <div className=" p-10 border-2 border-black rounded-lg ">
         <div className="text-lg font-bold mb-4 text-center">
           Sign-In to AnTCV
