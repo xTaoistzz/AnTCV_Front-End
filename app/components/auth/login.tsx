@@ -20,7 +20,7 @@ const handleCloseSuccess = () => {
     e.preventDefault();
     const formData = { username, password };
     try {
-        const res = await fetch('http://localhost:5000/login', {
+        const res = await fetch(`${process.env.ORIGIN_URL}/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

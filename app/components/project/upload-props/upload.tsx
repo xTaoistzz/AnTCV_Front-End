@@ -40,7 +40,7 @@ const Dropzone: React.FC<ProjectProps> = ({idproject}) => {
     formData.append("type",type)
     
 
-    fetch("http://localhost:5000/uploadImage", {
+    fetch(`${process.env.ORIGIN_URL}/uploadImage`, {
       method: "POST",
       body: formData,
       credentials: 'include'

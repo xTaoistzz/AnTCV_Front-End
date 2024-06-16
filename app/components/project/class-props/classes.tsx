@@ -31,7 +31,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
     try {
       if (type) {
         const res = await fetch(
-          `http://localhost:5000/${type}/class/${params.id}`,
+          `${process.env.ORIGIN_URL}/${type}/class/${params.id}`,
           { credentials: "include" }
         );
         const data = await res.json();
@@ -50,7 +50,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
   const DeleteClass = async (class_id: string) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/delete/${type}/class/${class_id}`,
+        `${process.env.ORIGIN_URL}/delete/${type}/class/${class_id}`,
         {
           method: "DELETE",
           credentials: "include",

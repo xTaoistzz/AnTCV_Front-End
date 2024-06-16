@@ -11,7 +11,7 @@ const ProjectApp: React.FC = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("http://localhost:5000/allProject", {
+        const res = await fetch(`${process.env.ORIGIN_URL}/allProject`, {
           credentials: "include",
         });
         const data: ProjectResponse = await res.json();

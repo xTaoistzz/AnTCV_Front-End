@@ -23,7 +23,7 @@ const handleCloseSuccess = () => {
     e.preventDefault();
     const formData = { username, email, password, conPassword };
     try {
-      const res = await fetch("../../api/auth/register", {
+      const res = await fetch(`${process.env.ORIGIN_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

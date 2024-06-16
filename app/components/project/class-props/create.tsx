@@ -29,7 +29,7 @@ export default function ClassCreate({
     e.preventDefault();
     try {
       const formData = { class_label, idproject };
-      const res = await fetch(`http://localhost:5000/create/${type}/label`, {
+      const res = await fetch(`${process.env.ORIGIN_URL}/create/${type}/label`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

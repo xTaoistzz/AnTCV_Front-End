@@ -23,7 +23,7 @@ export default function RootLayout({
 
   const fetchName = async() => {
     try {
-      const res = await fetch('http://localhost:5000/returnUsername', { credentials : 'include' })
+      const res = await fetch(`${process.env.ORIGIN_URL}/returnUsername`, { credentials : 'include' })
       const data = await res.json()
       console.log(data.username);
       if (res.ok) {
