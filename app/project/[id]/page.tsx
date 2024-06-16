@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Menu from "@/app/components/project/menu/menu";
 import { useEffect } from "react";
 import Classes from "@/app/components/project/class-props/classes";
-
+import Dropzone from "@/app/components/project/upload-props/upload";
 interface ProjectProps {
   params: {
     id: string;
@@ -53,6 +53,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
           </div>
           <div className="min-h-screen rounded-md border border-black m-4">
             { show === "Classes" && <Classes params={params}/> }
+            { show === "Upload" && <Dropzone idproject={params.id}/>}
           </div>
         </div>
       </div>

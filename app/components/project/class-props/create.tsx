@@ -25,10 +25,11 @@ export default function ClassCreate({
   const [ msg, setMsg ] = useState<Msg | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const type = localStorage.getItem("Type");
     e.preventDefault();
     try {
       const formData = { class_label, idproject };
-      const res = await fetch(`http://localhost:5000/create/detection/label`, {
+      const res = await fetch(`http://localhost:5000/create/${type}/label`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

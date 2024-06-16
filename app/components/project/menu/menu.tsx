@@ -30,17 +30,17 @@ const Menu = () => {
             {dropdownVisible && (
               <ul className="grid grid-rows-3 text-left pl-5">
                 <li className="pt-3">
-                  <button onClick={() => setType("Classification")}>
+                  <button onClick={() => setType("classification")}>
                     Classification
                   </button>
                 </li>
                 <li className="pt-3">
-                  <button onClick={() => setType("Detection")}>
+                  <button onClick={() => setType("detection")}>
                     Detection
                   </button>
                 </li>
                 <li className="pt-3">
-                  <button onClick={() => setType("Segmentation")}>
+                  <button onClick={() => setType("segmentation")}>
                     Segmentation
                   </button>
                 </li>

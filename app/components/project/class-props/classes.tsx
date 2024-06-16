@@ -13,61 +13,57 @@ interface label {
   class_label: string;
 }
 
-
-
 const Classes: React.FC<ProjectProps> = ({ params }) => {
   const [showCreate, setShowCreate] = useState(false);
-
+  const type = localStorage.getItem("Type");
   const handleShowCreate = () => {
     setShowCreate(true);
   };
 
   const handleCloseCreate = () => {
     setShowCreate(false);
-    fetchClass()
+    fetchClass();
   };
 
   const [typedata, setTypedata] = useState<label[]>([]);
 
   const fetchClass = useCallback(async () => {
-    const type = localStorage.getItem("Type");
     try {
-      if (type === "Detection") {
+      if (type) {
         const res = await fetch(
-          `http://localhost:5000/detection/class/${params.id}`,
+          `http://localhost:5000/${type}/class/${params.id}`,
           { credentials: "include" }
         );
         const data = await res.json();
         setTypedata(data.label);
         console.log(data.label);
       }
-      else if ( type === "Segmentation") {
-        
-      }
     } catch (error) {
       console.error("Error fetching classes:", error);
     }
-  }, [params.id]);
+  }, [params.id, type]);
 
   useEffect(() => {
     fetchClass();
   }, [fetchClass]);
 
-  const DeleteClass = async(class_id:string) => {
+  const DeleteClass = async (class_id: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/delete/detection/class/${class_id}`, {
-        method: 'DELETE', credentials:'include'
-      })
-      const data = res.json()
-      fetchClass()
-    } catch (error) {
-      
-    }
-  }
+      const res = await fetch(
+        `http://localhost:5000/delete/${type}/class/${class_id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+      const data = res.json();
+      fetchClass();
+    } catch (error) {}
+  };
 
-  const RenameClass = async() => {
-    document.getElementById("changetoinput")
-  }
+  const RenameClass = async () => {
+    document.getElementById("changetoinput");
+  };
 
   return (
     <>
@@ -82,12 +78,28 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
           Create Class
         </button>
       </div>
+      { type === "classification" && <div className="text-center text-red-500 font-bold">=== The Classification is in Maintenance, Cannot Create Class in This type now ===</div>}
       {typedata.map((type, index) => (
         <div key={type.class_id} className="flex pl-6 pr-6 space-x-4">
-          <div className=" bg-slate-300 m-2 p-2 rounded-md">{index+1}</div>
-          <div id="changetoinput" className="flex-1 m-2 p-2 bg-slate-200 rounded-md">{type.class_label}</div>
-          <button onClick={()=>RenameClass()} className="m-2 p-2 bg-yellow-500 rounded-md text-white hover:bg-green-700">Rename</button>
-          <button className="m-2 p-2 bg-red-500 rounded-md text-white hover:bg-red-700" onClick={()=> DeleteClass(type.class_id)}>Delete</button>
+          <div className=" bg-slate-300 m-2 p-2 rounded-md">{index + 1}</div>
+          <div
+            id="changetoinput"
+            className="flex-1 m-2 p-2 bg-slate-200 rounded-md"
+          >
+            {type.class_label}
+          </div>
+          <button
+            onClick={() => RenameClass()}
+            className="m-2 p-2 bg-yellow-500 rounded-md text-white hover:bg-green-700"
+          >
+            Rename
+          </button>
+          <button
+            className="m-2 p-2 bg-red-500 rounded-md text-white hover:bg-red-700"
+            onClick={() => DeleteClass(type.class_id)}
+          >
+            Delete
+          </button>
         </div>
       ))}
       <ClassCreate
