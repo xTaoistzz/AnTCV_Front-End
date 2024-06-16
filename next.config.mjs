@@ -5,7 +5,7 @@ import {} from 'dotenv/config'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        BACK_URL : process.env.BACK_URL
+        ORIGIN_URL : process.env.ORIGIN_URL,
     },
     images: {
         remotePatterns: [

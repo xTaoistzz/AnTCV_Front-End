@@ -24,7 +24,7 @@ export default function SuccessDialog({
         <div className="font-bold text-xl">{successMessage}</div>
         <div className="space-x-4">
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.push('/project')}
             className="bg-gray-300 p-2 w-28"
           >
             Close
