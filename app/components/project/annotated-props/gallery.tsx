@@ -18,7 +18,6 @@ export default function Gallery({ idproject }: GalleryProps) {
   const [allUrl, setUrl] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const type = typeof window !== "undefined" ? localStorage.getItem("Type") : null;
-
   const fetchExternalImages = useCallback(async () => {
     try {
       const res = await fetch(
@@ -26,11 +25,21 @@ export default function Gallery({ idproject }: GalleryProps) {
         { credentials: "include" }
       );
       const alldata = await res.json();
-      const data: ImageData[] = alldata.detection;
-      const urls = data.map((img) => {
-        return `${process.env.ORIGIN_URL}/img/${idproject}/thumbs/${img.image_path}`;
-      });
-      setUrl(urls);
+      if (type === 'detection') {
+        const data: ImageData[] = alldata.detection;
+        const urls = data.map((img) => {
+          return `${process.env.ORIGIN_URL}/img/${idproject}/thumbs/${img.image_path}`;
+        });
+        setUrl(urls);
+      } else if (type === 'segmentation') {
+        const data: ImageData[] = alldata.segmentation;
+        const urls = data.map((img) => {
+          return `${process.env.ORIGIN_URL}/img/${idproject}/thumbs/${img.image_path}`;
+        });
+        setUrl(urls);
+      }
+
+      
     } catch (error) {
       console.error("Error fetching images:", error);
     }
@@ -51,6 +60,7 @@ export default function Gallery({ idproject }: GalleryProps) {
       <div className="flex overflow-x-auto space-x-2">
         {displayImages.map((url, index) => (
           <Image
+          onClick={()=> localStorage.setItem("ImgActive", url)}
             key={index}
             src={url}
             alt={`Image ${index}`}
