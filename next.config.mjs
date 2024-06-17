@@ -8,16 +8,8 @@ const nextConfig = {
         ORIGIN_URL : process.env.ORIGIN_URL,
     },
     images: {
-        remotePatterns: [
-        {
-            protocol: process.env.BACK_URL_PROTOCOL,
-            hostname: process.env.BACK_DOMAIN,
-            port: process.env.BACK_URL_PORT,
-            // pathname: `/img/**`  
-        }
-        ]
-    },
-
-};
+        domains: ['localhost', 'baiat.wattanapong.com'],
+      },
+}
 
 export default nextConfig;

@@ -18,6 +18,11 @@ const Menu = () => {
 
   const setShow = (show: string) => {
     localStorage.setItem("Show", show);
+    if (show === "Annotate") {
+      localStorage.setItem("Gallery", "active")
+    } else {
+      localStorage.setItem("Gallery", "inactive")
+    }
     window.location.reload();
   };
 
