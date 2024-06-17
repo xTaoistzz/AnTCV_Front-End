@@ -33,6 +33,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
     const localType = localStorage.getItem("Type");
     const ProjName = localStorage.getItem("Project_Name");
     const Show = localStorage.getItem("Show");
+    localStorage.setItem("ImgActive","")
     setType(localType ?? "");
     setProject(ProjName ?? "");
     setShow(Show ?? "");
