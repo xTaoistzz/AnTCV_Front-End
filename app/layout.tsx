@@ -6,6 +6,7 @@ import "./globals.css";
 import ListGuest from "./components/navigation/lists";
 import ListMem from "./components/navigation/listMem";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [authen, setAuthen] = useState(false)
-
+const router = useRouter()
   const fetchName = async() => {
     try {
       const res = await fetch(`${process.env.ORIGIN_URL}/returnUsername`, { credentials : 'include' })
@@ -28,6 +29,7 @@ export default function RootLayout({
       console.log(data.username);
       if (res.ok) {
         setAuthen(true);
+        router.push("/project")
       }
     } catch (error) {
       
