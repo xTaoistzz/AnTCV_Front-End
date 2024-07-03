@@ -29,7 +29,6 @@ const router = useRouter()
       console.log(data.username);
       if (res.ok) {
         setAuthen(true);
-        router.push("/project")
       }
     } catch (error) {
       

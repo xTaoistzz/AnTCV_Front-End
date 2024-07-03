@@ -5,7 +5,7 @@ import Menu from "@/app/components/project/menu/menu";
 import Classes from "@/app/components/project/class-props/classes";
 import Dropzone from "@/app/components/project/upload-props/upload";
 import Annotate from "@/app/components/project/annotated-props/annotated";
-import Gallery from "@/app/components/project/annotated-props/gallery";
+// import Gallery from "@/app/components/project/annotated-props/gallery";
 
 interface ProjectProps {
   params: {
@@ -33,7 +33,6 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
     const localType = localStorage.getItem("Type");
     const ProjName = localStorage.getItem("Project_Name");
     const Show = localStorage.getItem("Show");
-    localStorage.setItem("ImgActive","")
     setType(localType ?? "");
     setProject(ProjName ?? "");
     setShow(Show ?? "");
@@ -63,12 +62,9 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
           <div className="min-h-screen rounded-md border border-black m-4">
             {show === "Classes" && <Classes params={params} />}
             {show === "Upload" && <Dropzone idproject={params.id} />}
-            {show === "Annotate" && <Annotate />}
+            {show === "Annotate" && <Annotate idproject = {params.id} />}
           </div>
         </div>
-      </div>
-      <div className="flex fixed bottom-0 left-0 right-0 bg-white p-3 border-t border-black">
-        {active && <Gallery idproject={params.id}/>}
       </div>
     </div>
   );
