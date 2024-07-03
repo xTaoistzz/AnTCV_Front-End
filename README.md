@@ -4,6 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Create .env :
 ===============================
+```
 ORIGIN_URL="your backend url"
 BACK_DOMAIN="localhost"
 BACK_URL_PROTOCOL="http"
@@ -11,6 +12,7 @@ BACK_URL_PORT=""
 ===============================
 Back-end url of ai_tool_v2: https://github.com/lSleepYMaN/project
 ===============================
+```
 First, run the development server:
 ```bash
 npm run dev
