@@ -12,7 +12,13 @@ BACK_URL_PORT=""
 Back-end url of ai_tool_v2: https://github.com/lSleepYMaN/project
 ===============================
 ```
-Second, run the development server:
+Second, install node_modules:
+```
+npm i
+# or
+npm install
+```
+Third, run the development server:
 ```bash
 npm run dev
 # or
