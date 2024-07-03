@@ -1,5 +1,5 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+This is front-end web application !!! Make sure you're have Back-end and database to store web application data
 ## Getting Started ##
 
 First, make dotenv(.env) file:
