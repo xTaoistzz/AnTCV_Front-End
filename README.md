@@ -4,6 +4,11 @@ This is front-end web application !!! Make sure you're have Back-end and databas
 
 ## Getting Started
 
+You can use/watch my project by
+```
+git clone https://github.com/xTaoistzz/ai_tool_v2.git
+``` 
+
 First, make dotenv(.env) file:
 ```
 ORIGIN_URL=""
