@@ -1,9 +1,9 @@
-import Detection from "./typeof_annotated/detection/detection";
-import Segmentation from "./typeof_annotated/segmentation/segmentation";
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
+import Detection from "./typeof_annotated/detection/detection";
+import Segmentation from "./typeof_annotated/segmentation/segmentation";
 
-interface idType {
+interface IdType {
   idproject: string;
 }
 
@@ -13,19 +13,16 @@ interface ImageData {
   idsegmentation: string;
 }
 
-interface GalleryProps {
-  idproject: string;
-}
-
 const IMAGE_PER_PAGE = 15;
 
-export default function Annotate({ idproject }: idType) {
+export default function Annotate({ idproject }: IdType) {
   const iddetection = localStorage.getItem("idDetection");
   const [allUrl, setUrl] = useState<string[]>([]);
-  const [activeUrl, setActive] = useState<string | null>(null);
+  const [activeUrl, setActiveUrl] = useState<string | null>(null);
   const [allData, setAllData] = useState<ImageData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const type = typeof window !== "undefined" ? localStorage.getItem("Type") : null;
+  const [isGalleryOpen, setGalleryOpen] = useState(true); // State to manage gallery collapse
 
   const fetchExternalImages = useCallback(async () => {
     try {
@@ -69,7 +66,7 @@ export default function Annotate({ idproject }: idType) {
   const send_id_compared = (url: string) => {
     const img_url = url.replace("thumbs", "images");
 
-    setActive(url.replace("thumbs", "images"));
+    setActiveUrl(url.replace("thumbs", "images"));
     const path = url.split("/");
     const image_path = path.pop();
     console.log(image_path);
@@ -99,6 +96,10 @@ export default function Annotate({ idproject }: idType) {
     }
   };
 
+  const toggleGallery = () => {
+    setGalleryOpen(!isGalleryOpen);
+  };
+
   return (
     <div className="p-5">
       {type === "detection" && activeUrl && (
@@ -106,41 +107,56 @@ export default function Annotate({ idproject }: idType) {
       )}
       {type === "segmentation" && <Segmentation />}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-black">
-        <div className="flex overflow-x-auto space-x-2">
-          {displayImages.map((url, index) => (
-            <Image
-              className="border border-black rounded-md m-2 hover:border hover:border-gray-500"
-              onClick={() => send_id_compared(url)}
-              key={index}
-              src={url}
-              alt={`Image ${index}`}
-              width={120}
-              height={120}
-            />
-          ))}
+        <div className="flex justify-between items-center p-2">
+          <button
+            onClick={toggleGallery}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none"
+          >
+            {isGalleryOpen ? "Collapse Gallery" : "Expand Gallery"}
+          </button>
+          <div className="flex justify-center space-x-2">
+            <button
+              onClick={handlePreviousPage}
+              className={`mx-1 px-2 py-1 rounded ${
+                currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
+              }`}
+              disabled={currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <span className="mx-2 px-2 py-1 rounded bg-gray-200 text-black">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={handleNextPage}
+              className={`mx-1 px-2 py-1 rounded ${
+                currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
+              }`}
+              disabled={currentPage === totalPages}
+            >
+              Next Page
+            </button>
+          </div>
         </div>
-        <div className="flex justify-center mt-2">
-          <button
-            onClick={handlePreviousPage}
-            className={`mx-1 px-2 py-1 rounded ${
-              currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
-            }`}
-            disabled={currentPage === 1}
-          >
-            Previous Page
-          </button>
-          <span className="mx-2 px-2 py-1 rounded bg-gray-200 text-black">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={handleNextPage}
-            className={`mx-1 px-2 py-1 rounded ${
-              currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
-            }`}
-            disabled={currentPage === totalPages}
-          >
-            Next Page
-          </button>
+        {isGalleryOpen && (
+          <div className="flex overflow-x-auto space-x-2 p-2">
+            {displayImages.map((url, index) => (
+              <Image
+                className={`border rounded-md m-2 hover:border hover:border-gray-500 cursor-pointer ${
+                  activeUrl === url ? "border-2 border-blue-500" : ""
+                }`}
+                onClick={() => send_id_compared(url)}
+                key={index}
+                src={url}
+                alt={`Image ${index}`}
+                width={120}
+                height={120}
+              />
+            ))}
+          </div>
+        )}
+        <div className="flex justify-center mt-2 text-gray-500">
+          Total Images: {allUrl.length}
         </div>
       </div>
     </div>
