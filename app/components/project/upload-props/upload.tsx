@@ -11,7 +11,7 @@ const Dropzone: React.FC<ProjectProps> = ({ idproject }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const id = idproject;
   const type = localStorage.getItem("Type") || "";
-  const imagesPerPage = 20;
+  const imagesPerPage = 12;
 
   const onDrop = useCallback(
     (acceptedFiles: File[], fileRejections: FileRejection[]) => {

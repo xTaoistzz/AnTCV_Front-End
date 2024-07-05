@@ -30,7 +30,7 @@ export default function Create({ isOpen, onClose }: CreateDialogProps) {
       const data = await res.json()
       if (data.type === "success") {
         setMsg(data.message)
-        window.location.reload()
+        router.push('/project')
       }
     } catch (error) {
       console.error("Error Logging In: ", error);

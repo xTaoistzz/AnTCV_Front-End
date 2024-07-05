@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import Detection from "./typeof_annotated/detection/detection";
+import dynamic from 'next/dynamic';
 import Segmentation from "./typeof_annotated/segmentation/segmentation";
 
 interface IdType {
@@ -16,14 +16,14 @@ interface ImageData {
 const IMAGE_PER_PAGE = 15;
 
 export default function Annotate({ idproject }: IdType) {
-  const iddetection = localStorage.getItem("idDetection");
+  const Detection = dynamic(() => import("./typeof_annotated/detection/detection"), { ssr: false });
+  const iddetection = typeof window !== "undefined" ? localStorage.getItem("idDetection") : null;
   const [allUrl, setUrl] = useState<string[]>([]);
   const [activeUrl, setActiveUrl] = useState<string | null>(null);
   const [allData, setAllData] = useState<ImageData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const type = typeof window !== "undefined" ? localStorage.getItem("Type") : null;
   const [isGalleryOpen, setGalleryOpen] = useState(true); // State to manage gallery collapse
-  const [selectedImage, setSelectedImage] = useState(false); // State to track if an image is selected
 
   const fetchExternalImages = useCallback(async () => {
     try {
@@ -83,7 +83,6 @@ export default function Annotate({ idproject }: IdType) {
         }
       }
     });
-    setSelectedImage(true); // Set selectedImage to true when an image is selected
   };
 
   const handleNextPage = () => {
@@ -103,10 +102,7 @@ export default function Annotate({ idproject }: IdType) {
   };
 
   return (
-    <div className="">
-      { !selectedImage && ( <div className="flex items-center justify-center text-gray-500">
-        You're not selected Image, Please select image to make Annotation
-              </div> )}
+    <div className="p-5">
       {type === "detection" && activeUrl && (
         <Detection idproject={idproject} iddetection={iddetection} imageUrl={activeUrl} />
       )}
@@ -158,10 +154,9 @@ export default function Annotate({ idproject }: IdType) {
                 height={120}
               />
             ))}
-            {/* Display message when no image is selected */}
             {displayImages.length === 0 && (
-              <div className="flex items-center justify-center text-gray-500">
-                You don't have Image, Please Upload image to make Annotation
+              <div className="text-gray-500 mx-auto mt-4">
+                You're not selected an image. Please select an image to make an annotation.
               </div>
             )}
           </div>
