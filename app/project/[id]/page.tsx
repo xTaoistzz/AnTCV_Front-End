@@ -5,7 +5,6 @@ import Menu from "@/app/components/project/menu/menu";
 import Classes from "@/app/components/project/class-props/classes";
 import Dropzone from "@/app/components/project/upload-props/upload";
 import Annotate from "@/app/components/project/annotated-props/annotated";
-// import Gallery from "@/app/components/project/annotated-props/gallery";
 
 interface ProjectProps {
   params: {
@@ -40,30 +39,34 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
   }, []);
 
   return (
-    <div className="pb-24"> {/* Adjust this value based on the height of the fixed footer */}
-      <div className="min-h-screen flex m-3 p-3">
-        <aside className="flex bg-white border-black p-3">
-          <div className="border-r border-black transition duration-200 ease-in-out">
-            {menu && <Menu />}
-          </div>
-          <button
-            className="rounded-md bg-slate-300 w-12 h-12"
-            onClick={toggleMenu}
-          >
-            Hide
-          </button>
-        </aside>
-        <div className="flex-auto bg-white p-3 space-y-2">
-          <div className="pl-5 font-bold">Project : {project}</div>
-          <div className="border-b border-black pb-4 pl-5">
-            Annotation Type : {type}
-          </div>
-          <div className="pl-5">Page Type : {show}</div>
-          <div className="min-h-screen rounded-md border border-black m-4">
-            {show === "Classes" && <Classes params={params} />}
-            {show === "Upload" && <Dropzone idproject={params.id} />}
-            {show === "Annotate" && <Annotate idproject = {params.id} />}
-          </div>
+    <div className="pb-24 flex flex-col md:flex-row">
+      <aside
+        className={`bg-white border border-gray-300 p-4 shadow-md ${
+          menu ? "" : "hidden"
+        }`}
+      >
+        {menu && <Menu />}
+      </aside>
+      <div className="absolute top-4 right-4 md:relative md:top-auto md:right-auto flex items-center">
+        <button
+          className="rounded-r-full bg-gray-200 hover:bg-gray-300 text-gray-800 w-10 h-10 flex items-center justify-center"
+          onClick={toggleMenu}
+        >
+          {menu ? "<" : ">"}
+        </button>
+      </div>
+      <div className="flex-auto bg-white p-4">
+        <div className="font-bold text-l mb-4 text-gray-600">
+          {project} / {show} / {type}
+        </div>
+        {/* <div className="border-b border-gray-300 pb-2 mb-4">
+          Annotation Type: {type}
+        </div>
+        <div className="mb-4">Page Type: {show}</div> */}
+        <div className="min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto">
+          {show === "Classes" && <Classes params={params} />}
+          {show === "Upload" && <Dropzone idproject={params.id} />}
+          {show === "Annotate" && <Annotate idproject={params.id} />}
         </div>
       </div>
     </div>
