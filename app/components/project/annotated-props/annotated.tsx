@@ -1,5 +1,5 @@
-import Detection from "./typeof_annotated/detection/detection"
-import Segmentation from "./typeof_annotated/segmentation/segmentation"
+import Detection from "./typeof_annotated/detection/detection";
+import Segmentation from "./typeof_annotated/segmentation/segmentation";
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
@@ -34,7 +34,7 @@ export default function Annotate({ idproject }: idType) {
         { credentials: "include" }
       );
       const alldata = await res.json();
-      if (type === 'detection') {
+      if (type === "detection") {
         const data: ImageData[] = alldata.detection;
         setAllData(alldata.detection);
         const urls = data.map((img) => {
@@ -42,7 +42,7 @@ export default function Annotate({ idproject }: idType) {
           return url;
         });
         setUrl(urls);
-      } else if (type === 'segmentation') {
+      } else if (type === "segmentation") {
         const data: ImageData[] = alldata.segmentation;
         setAllData(alldata.segmentation);
         const urls = data.map((img) => {
@@ -68,12 +68,12 @@ export default function Annotate({ idproject }: idType) {
 
   const send_id_compared = (url: string) => {
     const img_url = url.replace("thumbs", "images");
-    
+
     setActive(url.replace("thumbs", "images"));
-    const path = url.split('/');
+    const path = url.split("/");
     const image_path = path.pop();
     console.log(image_path);
-    console.log(img_url)
+    console.log(img_url);
     allData.forEach((com) => {
       if (type === "detection") {
         if (com.image_path === image_path) {
@@ -85,6 +85,18 @@ export default function Annotate({ idproject }: idType) {
         }
       }
     });
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   return (
@@ -108,17 +120,27 @@ export default function Annotate({ idproject }: idType) {
           ))}
         </div>
         <div className="flex justify-center mt-2">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-2 py-1 rounded ${
-                index + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300'
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          <button
+            onClick={handlePreviousPage}
+            className={`mx-1 px-2 py-1 rounded ${
+              currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
+            }`}
+            disabled={currentPage === 1}
+          >
+            Previous Page
+          </button>
+          <span className="mx-2 px-2 py-1 rounded bg-gray-200 text-black">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            className={`mx-1 px-2 py-1 rounded ${
+              currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
+            }`}
+            disabled={currentPage === totalPages}
+          >
+            Next Page
+          </button>
         </div>
       </div>
     </div>
