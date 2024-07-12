@@ -5,6 +5,7 @@ import Menu from "@/app/components/project/menu/menu";
 import Classes from "@/app/components/project/class-props/classes";
 import Dropzone from "@/app/components/project/upload-props/upload";
 import Annotate from "@/app/components/project/annotated-props/annotated";
+import Export from "@/app/components/project/export/export";
 
 interface ProjectProps {
   params: {
@@ -67,6 +68,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
           {show === "Classes" && <Classes params={params} />}
           {show === "Upload" && <Dropzone idproject={params.id} />}
           {show === "Annotate" && <Annotate idproject={params.id} />}
+          {show === "Export" && <Export idproject={params.id} />}
         </div>
       </div>
     </div>
