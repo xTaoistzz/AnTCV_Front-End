@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/project/annotated-props/typeof_annotated/detection/detection.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/project/annotated-props/typeof_annotated/detection/detection.jsx", "app/components/project/annotated-props/typeof_annotated/segmentation/segmentation.jsx"],
   "exclude": ["node_modules"]
 }

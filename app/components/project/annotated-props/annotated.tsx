@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import Segmentation from "./typeof_annotated/segmentation/segmentation";
 
 interface IdType {
@@ -16,13 +16,26 @@ interface ImageData {
 const IMAGE_PER_PAGE = 15;
 
 export default function Annotate({ idproject }: IdType) {
-  const Detection = dynamic(() => import("./typeof_annotated/detection/detection"), { ssr: false });
-  const iddetection = typeof window !== "undefined" ? localStorage.getItem("idDetection") : null;
+  const Detection = dynamic(
+    () => import("./typeof_annotated/detection/detection"),
+    { ssr: false }
+  );
+  const Segmentation = dynamic(
+    () => import("./typeof_annotated/segmentation/segmentation"),
+    { ssr: false }
+  );
+  const iddetection =
+    typeof window !== "undefined" ? localStorage.getItem("idDetection") : null;
+  const idsegmentation =
+    typeof window !== "undefined"
+      ? localStorage.getItem("idSegmentation")
+      : null;
   const [allUrl, setUrl] = useState<string[]>([]);
   const [activeUrl, setActiveUrl] = useState<string | null>(null);
   const [allData, setAllData] = useState<ImageData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const type = typeof window !== "undefined" ? localStorage.getItem("Type") : null;
+  const type =
+    typeof window !== "undefined" ? localStorage.getItem("Type") : null;
   const [isGalleryOpen, setGalleryOpen] = useState(true); // State to manage gallery collapse
 
   const fetchExternalImages = useCallback(async () => {
@@ -104,9 +117,19 @@ export default function Annotate({ idproject }: IdType) {
   return (
     <div className="p-5">
       {type === "detection" && activeUrl && (
-        <Detection idproject={idproject} iddetection={iddetection} imageUrl={activeUrl} />
+        <Detection
+          idproject={idproject}
+          iddetection={iddetection}
+          imageUrl={activeUrl}
+        />
       )}
-      {type === "segmentation" && <Segmentation />}
+      {type === "segmentation" && activeUrl && (
+        <Segmentation
+          idproject={idproject}
+          idsegmentation={idsegmentation}
+          imageUrl={activeUrl}
+        />
+      )}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-black">
         <div className="flex justify-between items-center p-2">
           <button
@@ -119,7 +142,9 @@ export default function Annotate({ idproject }: IdType) {
             <button
               onClick={handlePreviousPage}
               className={`mx-1 px-2 py-1 rounded ${
-                currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
+                currentPage === 1
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-blue-500 text-white"
               }`}
               disabled={currentPage === 1}
             >
@@ -131,7 +156,9 @@ export default function Annotate({ idproject }: IdType) {
             <button
               onClick={handleNextPage}
               className={`mx-1 px-2 py-1 rounded ${
-                currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"
+                currentPage === totalPages
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-blue-500 text-white"
               }`}
               disabled={currentPage === totalPages}
             >
@@ -156,7 +183,8 @@ export default function Annotate({ idproject }: IdType) {
             ))}
             {displayImages.length === 0 && (
               <div className="text-gray-500 mx-auto mt-4">
-                You're not selected an image. Please select an image to make an annotation.
+                You're not selected an image. Please select an image to make an
+                annotation.
               </div>
             )}
           </div>
