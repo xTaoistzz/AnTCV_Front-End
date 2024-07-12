@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Segmentation from "./typeof_annotated/segmentation/segmentation";
 
@@ -31,7 +30,7 @@ export default function Annotate({ idproject }: IdType) {
       ? localStorage.getItem("idSegmentation")
       : null;
   const [allUrl, setUrl] = useState<string[]>([]);
-  const [activeUrl, setActiveUrl] = useState<string | null>(null);
+  const [activeUrl, setActiveUrl] = useState<string | null>(null); // State to store the active image URL
   const [allData, setAllData] = useState<ImageData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const type =
@@ -80,7 +79,7 @@ export default function Annotate({ idproject }: IdType) {
   const send_id_compared = (url: string) => {
     const img_url = url.replace("thumbs", "images");
 
-    setActiveUrl(url.replace("thumbs", "images"));
+    setActiveUrl(url); // Set the active image URL
     const path = url.split("/");
     const image_path = path.pop();
     console.log(image_path);
@@ -120,14 +119,14 @@ export default function Annotate({ idproject }: IdType) {
         <Detection
           idproject={idproject}
           iddetection={iddetection}
-          imageUrl={activeUrl}
+          imageUrl={activeUrl.replace("thumbs", "images")}
         />
       )}
       {type === "segmentation" && activeUrl && (
         <Segmentation
           idproject={idproject}
           idsegmentation={idsegmentation}
-          imageUrl={activeUrl}
+          imageUrl={activeUrl.replace("thumbs", "images")}
         />
       )}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-black">
@@ -167,24 +166,40 @@ export default function Annotate({ idproject }: IdType) {
           </div>
         </div>
         {isGalleryOpen && (
-          <div className="flex overflow-x-auto space-x-2 p-2">
+          <div className="flex overflow-x-auto overflow-hidden p-4">
             {displayImages.map((url, index) => (
-              <Image
-                className={`border rounded-md m-2 hover:border hover:border-gray-500 cursor-pointer ${
-                  activeUrl === url ? "border-2 border-blue-500" : ""
-                }`}
-                onClick={() => send_id_compared(url)}
-                key={index}
-                src={url}
-                alt={`Image ${index}`}
-                width={120}
-                height={120}
-              />
+              <div key={index} className="relative group">
+                <img
+                  src={url}
+                  alt={`Image ${index}`}
+                  width={120}
+                  height={120}
+                  className={`rounded-lg shadow-lg h-auto object-cover cursor-pointer border-2 ${activeUrl === url ? "border-yellow-400" : "border-transparent"
+                  }`}
+                  onClick={() => send_id_compared(url)}
+                />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-10 w-10 text-white bg-black bg-opacity-75 rounded-full p-2 cursor-pointer hover:bg-opacity-100"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    onClick={() => send_id_compared(url)}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                </div>
+              </div>
             ))}
             {displayImages.length === 0 && (
               <div className="text-gray-500 mx-auto mt-4">
-                You're not selected an image. Please select an image to make an
-                annotation.
+                You haven't selected any image. Please select an image to annotate.
               </div>
             )}
           </div>
