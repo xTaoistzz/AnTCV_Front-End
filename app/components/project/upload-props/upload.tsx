@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDropzone, FileRejection } from "react-dropzone";
 import Image from "next/image";
 
@@ -9,6 +9,7 @@ interface ProjectProps {
 const Dropzone: React.FC<ProjectProps> = ({ idproject }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); // State for success message
   const id = idproject;
   const type = localStorage.getItem("Type") || "";
   const imagesPerPage = 12;
@@ -55,13 +56,23 @@ const Dropzone: React.FC<ProjectProps> = ({ idproject }) => {
       })
       .then((data) => {
         console.log("Upload success:", data);
-        // Handle success - e.g. update state or notify user
+        setSelectedFiles([]); // Clear files after successful upload
+        setSuccessMessage("Images uploaded successfully!"); // Set success message
       })
       .catch((error) => {
         console.error("Error during upload:", error);
         // Handle error - e.g. notify user
       });
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage(null); // Clear success message after 3 seconds
+      }, 3000);
+      return () => clearTimeout(timer); // Clear timeout if the component unmounts
+    }
+  }, [successMessage]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -83,6 +94,11 @@ const Dropzone: React.FC<ProjectProps> = ({ idproject }) => {
 
   return (
     <div className="text-center p-8 bg-gray-50 rounded-lg shadow-lg">
+      {successMessage && (
+        <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+          {successMessage}
+        </div>
+      )}
       {selectedFiles.length > 0 && (
         <button
           onClick={uploadFile}
