@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { useRouter } from "next/navigation";
@@ -36,7 +35,9 @@ export default function Create({ isOpen, onClose }: CreateDialogProps) {
       const data = await res.json();
       if (data.type === "success") {
         setMsg(data.message);
-        router.push("/project");
+        router.push("/project"); // Redirect to the project page after successful creation
+        onClose(); // Close the modal
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error Logging In: ", error);
