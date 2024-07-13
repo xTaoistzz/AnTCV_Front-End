@@ -56,6 +56,12 @@ export default function Annotate({ idproject }: IdType) {
     fetchExternalImages();
   }, [fetchExternalImages]);
 
+  useEffect(() => {
+    if (allUrl.length > 0) {
+      setActiveUrl(allUrl[0]); // Set activeUrl to the first image in allUrl
+    }
+  }, [allUrl]);
+
   const totalPages = Math.ceil(allUrl.length / IMAGE_PER_PAGE);
   const displayImages = allUrl.slice(
     (currentPage - 1) * IMAGE_PER_PAGE,
@@ -108,7 +114,7 @@ export default function Annotate({ idproject }: IdType) {
           imageUrl={activeUrl.replace("thumbs", "images")}
         />
       )}
-      <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-black rounded-t-lg shadow-lg  transition-all duration-500 ${isGalleryOpen ? ' translate-y-0' : '  translate-y-2/3'}`}>
+      <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-black rounded-t-lg shadow-lg transition-all duration-500 ${isGalleryOpen ? 'translate-y-0' : 'translate-y-2/3'}`}>
         <div className="flex justify-between items-center p-2">
           <button
             onClick={toggleGallery}
