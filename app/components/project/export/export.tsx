@@ -81,8 +81,7 @@ const Export: React.FC<ProjectProps> = ({ idproject }) => {
   return (
     <div className="text-center p-8 bg-gray-50 rounded-lg shadow-lg">
       <div className="mb-4">
-        <div className="text-xl font-bold">This is Export Page</div>
-        <div className="mt-2">Export Contents</div>
+        <div className="text-xl font-bold">Export</div>
       </div>
       <form onSubmit={handleExport}>
         <div className="flex items-center justify-center mt-4">

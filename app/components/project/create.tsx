@@ -1,67 +1,98 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-const successMessage = "Login successful!";
 
 interface CreateDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 export default function Create({ isOpen, onClose }: CreateDialogProps) {
   const [project_name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async(e: React.FormEvent) => {
-    e.preventDefault()
-    const formData = { project_name, description }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Check if either project_name or description is empty
+    if (!project_name.trim() || !description.trim()) {
+      setMsg("Please fill out both fields.");
+      return;
+    }
+
+    const formData = { project_name, description };
     try {
       const res = await fetch(`${process.env.ORIGIN_URL}/create/project`, {
-        method:'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-        credentials : "include"
-      })
-      const data = await res.json()
+        credentials: "include",
+      });
+      const data = await res.json();
       if (data.type === "success") {
-        setMsg(data.message)
-        router.push('/project')
+        setMsg(data.message);
+        router.push("/project");
       }
     } catch (error) {
       console.error("Error Logging In: ", error);
     }
   };
+
   return (
-    <div className="">
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onClose}
-        className=" bg-white h-1/2 m-20 text-center border border-black rounded-lg content-center space-y-4"
-      >
-        <div className="font-extrabold text-xl">Create New Project</div>
-        <div className="font-bold text-xl"></div>
-        <div className="space-x-4">
-          <form onSubmit={handleSubmit} className="flex flex-col space-y-4 items-center">
-            <div className="flex flex-col">
-              <label htmlFor="project name" className="text-left">Project name</label>
-              <input onChange={(e) => setName(e.target.value)} type="text" placeholder="Enter Project name" className="border-2 border-gray-200 rounded-md focus:outline-gray-500 w-full"/>
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="description" className="text-left">Desciption</label>
-              <textarea onChange={(e) => setDescription(e.target.value)} placeholder="Description" className="border-2 border-gray-200 rounded-md focus:outline-gray-500 w-full"/>
-            </div>
-            {msg && <div className="text-green-500">{msg}</div>}
-            <button type="submit" className="text-black border-2 border-black py-2 px-4 rounded hover:bg-gray-300 ">
-              Create Project
-            </button>
-          </form>
-        </div>
-      </Modal>
-    </div>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className="flex items-center justify-center h-screen"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+    >
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative transition-opacity ease-out duration-300">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 transition-opacity ease-out duration-300"
+        >
+          &times;
+        </button>
+        <h2 className="text-2xl font-extrabold mb-4 text-center">Create New Project</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <div className="flex flex-col">
+            <label htmlFor="project_name" className="text-left font-bold mb-1">
+              Project Name
+            </label>
+            <input
+              id="project_name"
+              type="text"
+              placeholder="Enter Project Name"
+              value={project_name}
+              onChange={(e) => setName(e.target.value)}
+              className="border-2 border-gray-300 rounded-md p-2 focus:outline-none focus:border-gray-500 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="description" className="text-left font-bold mb-1">
+              Description
+            </label>
+            <textarea
+              id="description"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="border-2 border-gray-300 rounded-md p-2 focus:outline-none focus:border-gray-500 w-full"
+            />
+          </div>
+          {msg && <div className="text-red-500 text-center">{msg}</div>}
+          <button
+            type="submit"
+            className="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-200"
+          >
+            Create Project
+          </button>
+        </form>
+      </div>
+    </Modal>
   );
 }
