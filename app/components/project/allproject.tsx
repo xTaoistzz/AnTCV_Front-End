@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Project, ProjectResponse } from "@/app/types";
 import { useRouter } from "next/navigation";
+import { AiFillSetting } from "react-icons/ai";
 
 const ProjectApp: React.FC = () => {
   const router = useRouter();
@@ -83,12 +84,12 @@ const ProjectApp: React.FC = () => {
         <div
           key={project.idproject}
           onClick={() => handleProject(project.idproject, project.project_name)}
-          className="grid grid-rows-5 space-y-3 border border-black p-4 rounded-md hover:bg-slate-200 transition duration-200 ease-in-out relative"
+          className="grid grid-rows-5 space-y-3 border  p-4 rounded-md hover:bg-opacity-30 hover:bg-gradient-to-r from-orange-300 bg-orange-100 transition-colors duration-300 ease-in-out relative"
         >
           <div
-            className="row-span-3 border border-black rounded-md justify-center content-center text-center bg-white cursor-pointer"
+            className="row-span-3 border  rounded-md justify-center content-center text-center bg-white cursor-pointer "
           >
-            Image จ้า
+            Image Section
           </div>
           <div className="font-extrabold m-1">{project.project_name}</div>
           <div className="text-gray-800 m-1">{project.description}</div>
@@ -96,9 +97,9 @@ const ProjectApp: React.FC = () => {
             <button
               onClick={(e) => handleOptionClick(e, project.idproject)}
               id={`Option-${project.idproject}`}
-              className="object-none border border-black mb-2 p-2 rounded-md bg-white cursor-pointer"
+              className="object-none border  mb-2 p-2 rounded-md bg-white cursor-pointer hover:bg-gray-900 text-xl hover:text-white"
             >
-              Option
+              <AiFillSetting />
             </button>
             {dropdownState[project.idproject] && (
               <div className="absolute right-0 mt-2 w-32 bg-white rounded-md border border-gray-300 shadow-lg">

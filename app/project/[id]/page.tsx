@@ -64,7 +64,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
         </div>
         
         {/* Main Content Area */}
-        <div className=" min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto">
+        <div className=" min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto bg-opacity-50">
           {/* Conditional Rendering based on 'show' state */}
           {show === "Classes" && <Classes params={params} />}
           {show === "Upload" && <Dropzone idproject={params.id} />}

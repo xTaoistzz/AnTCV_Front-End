@@ -58,11 +58,11 @@ export default function Create({ isOpen, onClose }: CreateDialogProps) {
         >
           &times;
         </button>
-        <h2 className="text-2xl font-extrabold mb-4 text-center">Create New Project</h2>
+        <h2 className="text-2xl mb-4 text-center">Create New Project</h2>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <div className="flex flex-col">
-            <label htmlFor="project_name" className="text-left font-bold mb-1">
-              Project Name
+            <label htmlFor="project_name" className="text-left mb-1">
+              Name
             </label>
             <input
               id="project_name"
@@ -74,7 +74,7 @@ export default function Create({ isOpen, onClose }: CreateDialogProps) {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="description" className="text-left font-bold mb-1">
+            <label htmlFor="description" className="text-left mb-1">
               Description
             </label>
             <textarea
@@ -88,7 +88,7 @@ export default function Create({ isOpen, onClose }: CreateDialogProps) {
           {msg && <div className="text-red-500 text-center">{msg}</div>}
           <button
             type="submit"
-            className="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-200"
+            className="border border-slate-700 bg-white text-gray-800 hover:bg-orange-400 transition-colors duration-300 hover:text-white font-medium  rounded-lg p-2"
           >
             Create Project
           </button>
