@@ -45,7 +45,7 @@ export default function RegisterA() {
 
   return (
     <div className="flex w-full justify-center">
-      <div className="p-10 border-black rounded-lg shadow-md bg-white">
+      <div className="p-10 border-black rounded-lg shadow-lg bg-white">
         <div className="text-lg font-bold mb-4 text-center flex flex-col items-center">
           <img
             src="/favicon.ico"
