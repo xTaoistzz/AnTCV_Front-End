@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import SuccessDialog from "./registersuccess";
+import Link from "next/link";
 
 export default function RegisterA() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -53,7 +54,10 @@ export default function RegisterA() {
           />
           <div>Sign-Up to AnTCV</div>
         </div>
-        <form className="flex flex-col space-y-4 items-center" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col space-y-4 items-center"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col w-full max-w-sm">
             <label htmlFor="username" className="block mb-1 text-gray-500">
               Username
@@ -88,7 +92,10 @@ export default function RegisterA() {
             />
           </div>
           <div className="flex flex-col w-full max-w-sm">
-            <label htmlFor="confirm password" className="block mb-1 text-gray-500">
+            <label
+              htmlFor="confirm password"
+              className="block mb-1 text-gray-500"
+            >
               Confirm Password
             </label>
             <input
@@ -101,11 +108,18 @@ export default function RegisterA() {
           {msg && <div className="text-red-500 text-center">{msg}</div>}
           <button
             type="submit"
-            className="text-black border-2 border-black py-2 px-4 rounded hover:bg-gray-300"
+            className="text-gray-700 py-2 px-4 rounded bg-white hover:bg-yellow-400 transition-colors duration-300 border"
           >
             Sign Up
           </button>
         </form>
+        <div className="text-center mt-3 flex flex-col text-sm space-y-2">
+          <Link href="/auth">
+            <button className=" text-gray-400 hover:text-gray-900">
+              You're already have an Account ? Sign-In
+            </button>
+          </Link>
+        </div>
       </div>
       <SuccessDialog isOpen={showSuccess} onClose={handleCloseSuccess} />
     </div>

@@ -42,7 +42,7 @@ export default function LoginA() {
   };
   return (
     <div className="flex w-full justify-center">
-      <div className=" p-10 rounded-lg shadow-md bg-white">
+      <div className=" p-10 rounded-lg shadow-lg bg-white">
         <div className="text-lg font-bold mb-4 text-center flex flex-col items-center">
         <img
             src="/favicon.ico"
@@ -83,7 +83,7 @@ export default function LoginA() {
           {msg && <div className="text-red-500">{msg}</div>}
           <button
             type="submit"
-            className=" text-black border-2 border-black py-2 px-4 rounded hover:bg-gray-300 "
+            className=" text-gray-700 py-2 px-4 rounded bg-white hover:bg-yellow-400 transition-colors duration-300 border"
           >
             Sign In
           </button>
