@@ -45,7 +45,7 @@ export default function RegisterA() {
 
   return (
     <div className="flex w-full justify-center">
-      <div className="p-10 border-black rounded-lg shadow-lg bg-white">
+      <div className="p-20 border-black rounded-lg shadow-lg bg-white">
         <div className="text-lg font-bold mb-4 text-center flex flex-col items-center">
           <img
             src="/favicon.ico"
@@ -65,7 +65,7 @@ export default function RegisterA() {
             <input
               type="text"
               placeholder="Username"
-              className="border border-gray-200 rounded-md focus:outline-gray-500"
+              className="border border-gray-200 rounded-md focus:outline-gray-500 pl-2 "
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -77,7 +77,7 @@ export default function RegisterA() {
               type="email"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
-              className="border border-gray-200 rounded-md focus:outline-gray-500"
+              className="border border-gray-200 rounded-md focus:outline-gray-500 pl-2 "
             />
           </div>
           <div className="flex flex-col w-full max-w-sm">
@@ -87,7 +87,7 @@ export default function RegisterA() {
             <input
               type="password"
               placeholder="Password"
-              className="border border-gray-200 rounded-md focus:outline-gray-500"
+              className="border border-gray-200 rounded-md focus:outline-gray-500 pl-2 "
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -101,14 +101,14 @@ export default function RegisterA() {
             <input
               type="password"
               placeholder="Confirm Password"
-              className="border border-gray-200 rounded-md focus:outline-gray-500"
+              className="border border-gray-200 rounded-md focus:outline-gray-500 pl-2 "
               onChange={(e) => setConfirm(e.target.value)}
             />
           </div>
           {msg && <div className="text-red-500 text-center">{msg}</div>}
           <button
             type="submit"
-            className="text-gray-700 py-2 px-4 rounded bg-white hover:bg-yellow-400 transition-colors duration-300 border"
+            className="text-gray-700 py-2 px-4 rounded bg-white hover:text-white hover:bg-orange-400 transition-colors duration-300 border"
           >
             Sign Up
           </button>

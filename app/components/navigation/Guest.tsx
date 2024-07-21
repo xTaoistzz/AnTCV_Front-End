@@ -18,7 +18,7 @@ export default function ListGuest() {
       
       <div className="flex space-x-5">
         <Link href="/auth">
-          <div id="sign-in" className="bg-white text-gray-800 hover:bg-blue-500 transition-colors duration-300 hover:text-white font-medium  rounded-lg p-2">Get Started</div>
+          <div id="sign-in" className="bg-white text-gray-800 hover:bg-orange-400 transition-colors duration-300 hover:text-white font-medium  rounded-lg p-2">Get Started</div>
         </Link>
       </div>
     </div>

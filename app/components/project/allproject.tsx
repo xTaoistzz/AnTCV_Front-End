@@ -63,6 +63,7 @@ const ProjectApp: React.FC = () => {
           prevProjects.filter((project) => project.idproject !== idproject)
         );
         console.log(`Project with id ${idproject} deleted successfully.`);
+        window.location.reload()
       } else {
         console.error(`Failed to delete project with id ${idproject}.`);
       }

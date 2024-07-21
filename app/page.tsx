@@ -1,4 +1,4 @@
-import ListGuest from "./components/navigation/lists";
+import ListGuest from "./components/navigation/Guest";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
               Welcome to AnTCV
             </h1>
             <p className="mt-4 text-xl text-gray-700">
-              Your go-to AI Tool for Image Labelling and Training. We offer
+              The AI Tool for Image Labelling. We offer
               advanced features for Classification, Detection, and Segmentation.
             </p>
           </div>

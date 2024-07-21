@@ -42,7 +42,7 @@ export default function LoginA() {
   };
   return (
     <div className="flex w-full justify-center">
-      <div className=" p-10 rounded-lg shadow-lg bg-white">
+      <div className=" p-20 rounded-lg shadow-lg bg-white">
         <div className="text-lg font-bold mb-4 text-center flex flex-col items-center">
         <img
             src="/favicon.ico"
@@ -65,7 +65,7 @@ export default function LoginA() {
             <input
               type="text"
               placeholder="Username"
-              className=" border border-gray-200 rounded-md focus:outline-gray-500"
+              className=" border border-gray-200 rounded-md focus:outline-gray-500 pl-2 text-sm"
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -76,14 +76,14 @@ export default function LoginA() {
             <input
               type="password"
               placeholder="Password"
-              className=" border border-gray-200 rounded-md focus:outline-gray-500 "
+              className=" border border-gray-200 rounded-md focus:outline-gray-500 pl-2 text-sm"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           {msg && <div className="text-red-500">{msg}</div>}
           <button
             type="submit"
-            className=" text-gray-700 py-2 px-4 rounded bg-white hover:bg-yellow-400 transition-colors duration-300 border"
+            className=" text-gray-700 py-2 px-4 rounded bg-white hover:bg-orange-400 hover:text-white transition-colors duration-300 border"
           >
             Sign In
           </button>

@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { useRouter } from "next/navigation";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
-const successMessage = "Login successful!";
+const successMessage = "Login Successful!";
 
 interface SuccessDialogProps {
   isOpen: boolean;
@@ -35,7 +35,10 @@ export default function SuccessDialog({
         >
           &times;
         </button>
-        <div className="font-extrabold text-5xl text-center mb-4">Success</div>
+        <div className="flex justify-center items-center mb-4">
+          <IoIosCheckmarkCircle className="text-6xl text-green-500" />
+        </div>
+        <div className="font-extrabold text-3xl text-center mb-4">Success</div>
         <div className="font-bold text-xl text-center mb-4">{successMessage}</div>
         <div className="flex justify-center">
           <button

@@ -25,7 +25,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg p-4">
+    <div className="bg-white rounded-lg">
       <ul className="space-y-3">
         <li>
           <div className="bg-black h-28 rounded-lg"></div>

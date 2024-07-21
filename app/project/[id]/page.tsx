@@ -40,14 +40,14 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row min-h-screen my-4">
       {/* Sidebar */}
-      <aside className={`min-h-screen bg-white border border-gray-300 p-4 shadow-md ${menu ? "" : "hidden"}`}>
+      <aside className={` rounded-r-lg min-h-screen bg-white border border-gray-300 p-4 shadow-md ${menu ? "" : "hidden"}`}>
         {menu && <Menu />}
       </aside>
       
       {/* Toggle Menu Button (Absolute positioning for mobile, relative for desktop) */}
-      <div className="absolute top-4 right-4 md:relative md:top-auto md:right-auto flex items-center">
+      <div className="absolute md:relative md:top-auto md:right-auto flex items-center">
         <button
           className="rounded-r-lg bg-gray-200 hover:bg-gray-300 text-gray-800 w-10 h-10 flex items-center justify-center"
           onClick={toggleMenu}
@@ -57,14 +57,14 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
       </div>
       
       {/* Main Content */}
-      <div className="flex-auto bg-white p-4">
+      <div className="flex-auto bg-white p-4 rounded-lg">
         {/* Project Header */}
         <div className="font-bold text-lg mb-4 text-gray-600">
           {project} / {show} / {type}
         </div>
         
         {/* Main Content Area */}
-        <div className="min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto">
+        <div className=" min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto">
           {/* Conditional Rendering based on 'show' state */}
           {show === "Classes" && <Classes params={params} />}
           {show === "Upload" && <Dropzone idproject={params.id} />}

@@ -1,10 +1,10 @@
 import React from "react";
-import ListGuest from "../components/navigation/Guest"; // Adjust path if necessary
+import ListMem from "../components/navigation/Member";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function AuthLayout({
+export default function ProjectLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -12,8 +12,10 @@ export default function AuthLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ListGuest />
-        <div className="min-h-screen bg-gradient-to-r from-orange-100 to-green-100 flex flex-col py-12 px-4 sm:px-6 lg:px-8">
+        <div className="sticky top-0 z-50 bg-white shadow-md">
+          <ListMem />
+        </div>
+        <div className="min-h-screen bg-gradient-to-r from-orange-100 to-green-100 flex flex-col">
           {children}
         </div>
       </body>

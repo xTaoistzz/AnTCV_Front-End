@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className="h-screen m-5 rounded-lg border border-black">
+    <div className="h-screen m-5 rounded-lg border border-white">
       <div className="p-10">
         <div className="text-center flex justify-between items-center p-5">
           <div className="text-2xl font-bold">Projects</div>
