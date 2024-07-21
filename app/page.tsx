@@ -1,6 +1,6 @@
 export default function Home() {
     return (
-      <div className="min-h-screen bg-gradient-to-r from-blue-100 to-green-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-r from-orange-100 to-green-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl w-full space-y-8">
           <div className="text-center">
             <h1 className="text-6xl font-extrabold text-gray-900">
@@ -88,7 +88,7 @@ export default function Home() {
               href="#"
               className="bg-blue-600 text-white py-3 px-6 rounded-md shadow-md hover:bg-blue-700 transition duration-200 transform hover:scale-105"
             >
-              Learn More
+              Get Started
             </a>
           </div>
         </div>

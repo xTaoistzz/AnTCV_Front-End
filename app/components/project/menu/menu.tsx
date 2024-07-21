@@ -25,9 +25,10 @@ const Menu = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4">
+    <div className="bg-white rounded-lg p-4">
       <ul className="space-y-3">
         <li>
+          <div className="bg-black h-28 rounded-lg"></div>
           <button
             onClick={toggleDropdown}
             className="flex items-center justify-between w-full rounded-md p-2 hover:bg-gray-100 text-left focus:outline-none"

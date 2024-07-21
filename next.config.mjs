@@ -7,7 +7,7 @@ const nextConfig = {
     ORIGIN_URL: process.env.ORIGIN_URL,
   },
   images: {
-    domains: ['localhost', 'baiat.wattanapong.com'],
+    domains: ['localhost', 'bantcv.dentxai.com'],
   },
 };
 

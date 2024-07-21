@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ListGuest() {
   return (
-    <div id="navigation" className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-200 to-green-200 shadow-md">
+    <div id="navigation" className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-300 to-green-300 shadow-md">
       <Link href="/">
         <div className="font-bold text-3xl text-gray-900 hover:text-gray-900 transition-colors duration-300">AnTCV</div>
       </Link>

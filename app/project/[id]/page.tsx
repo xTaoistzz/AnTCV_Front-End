@@ -42,14 +42,14 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
   return (
     <div className="flex flex-col md:flex-row">
       {/* Sidebar */}
-      <aside className={`bg-white border border-gray-300 p-4 shadow-md ${menu ? "" : "hidden"}`}>
+      <aside className={`min-h-screen bg-white border border-gray-300 p-4 shadow-md ${menu ? "" : "hidden"}`}>
         {menu && <Menu />}
       </aside>
       
       {/* Toggle Menu Button (Absolute positioning for mobile, relative for desktop) */}
       <div className="absolute top-4 right-4 md:relative md:top-auto md:right-auto flex items-center">
         <button
-          className="rounded-full bg-gray-200 hover:bg-gray-300 text-gray-800 w-10 h-10 flex items-center justify-center"
+          className="rounded-r-lg bg-gray-200 hover:bg-gray-300 text-gray-800 w-10 h-10 flex items-center justify-center"
           onClick={toggleMenu}
         >
           {menu ? "<" : ">"}

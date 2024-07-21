@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import SuccessDialog from "./success";
+import SuccessDialog from "./registersuccess";
 
 export default function RegisterA() {
     const [showSuccess, setShowSuccess] = useState(false);
@@ -46,7 +46,7 @@ const handleCloseSuccess = () => {
     <div className="flex w-full justify-center">
       <div className=" p-10 border-2 border-black rounded-lg ">
         <div className="text-lg font-bold mb-4 text-center">
-          Sign-In to AnTCV
+          Sign-Up to AnTCV
         </div>
         <form className="flex flex-col space-y-4 items-center" onSubmit={handleSubmit}>
           <div className="flex flex-col">
@@ -102,7 +102,7 @@ const handleCloseSuccess = () => {
             type="submit"
             className=" text-black border-2 border-black py-2 px-4 rounded hover:bg-gray-300 "
           >
-            Sign In
+            Sign Up
           </button>
         </form>
       </div>

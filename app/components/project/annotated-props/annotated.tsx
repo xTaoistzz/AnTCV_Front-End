@@ -11,7 +11,7 @@ interface ImageData {
   idsegmentation: string;
 }
 
-const IMAGE_PER_PAGE = 15;
+const IMAGE_PER_PAGE = 12;
 
 export default function Annotate({ idproject }: IdType) {
   const Detection = dynamic(() => import("./typeof_annotated/detection/detection"), {
