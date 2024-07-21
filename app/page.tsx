@@ -1,5 +1,9 @@
+import ListGuest from "./components/navigation/lists";
+
 export default function Home() {
-    return (
+  return (
+    <div>
+      <ListGuest />
       <div className="min-h-screen bg-gradient-to-r from-orange-100 to-green-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl w-full space-y-8">
           <div className="text-center">
@@ -7,7 +11,8 @@ export default function Home() {
               Welcome to AnTCV
             </h1>
             <p className="mt-4 text-xl text-gray-700">
-              Your go-to AI Tool for Image Labelling and Training. We offer advanced features for Classification, Detection, and Segmentation.
+              Your go-to AI Tool for Image Labelling and Training. We offer
+              advanced features for Classification, Detection, and Segmentation.
             </p>
           </div>
           <div className="bg-white p-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">
@@ -25,7 +30,11 @@ export default function Home() {
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    ></path>
                   </svg>
                 </span>
                 <div>
@@ -33,7 +42,8 @@ export default function Home() {
                     Classification
                   </h3>
                   <p className="text-gray-600">
-                    Categorize images into predefined classes quickly and accurately.
+                    Categorize images into predefined classes quickly and
+                    accurately.
                   </p>
                 </div>
               </li>
@@ -47,7 +57,11 @@ export default function Home() {
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    ></path>
                   </svg>
                 </span>
                 <div>
@@ -69,7 +83,11 @@ export default function Home() {
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    ></path>
                   </svg>
                 </span>
                 <div>
@@ -77,7 +95,8 @@ export default function Home() {
                     Segmentation
                   </h3>
                   <p className="text-gray-600">
-                    Perform pixel-level labelling for precise image segmentation.
+                    Perform pixel-level labelling for precise image
+                    segmentation.
                   </p>
                 </div>
               </li>
@@ -93,5 +112,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}

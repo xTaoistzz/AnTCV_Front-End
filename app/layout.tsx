@@ -22,7 +22,6 @@ export default function RootLayout({
         <link rel="icon" href="/ai_tool_v2/public/favicon.png" sizes="any" type="image/png" />
       </head>
       <body className={inter.className}>
-        <ListGuest />
         {children}
       </body>
     </html>
