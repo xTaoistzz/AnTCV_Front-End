@@ -1,27 +1,30 @@
 "use client";
-
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Login from "../components/auth/login";
-import Register from "../components/auth/register";
 
 export default function Auth() {
-  const [auth, setAuth] = useState("register");
+  const [owner, setOwner] = useState('');
 
-  const handlelogin = () => {
-    setAuth("login");
+const router = useRouter()
+const fetchOwner = async () => {
+  try {
+    const res = await fetch(`${process.env.ORIGIN_URL}/returnUsername`, { credentials: 'include' });
+    if(res.ok) {
+      router.push('/project')
+    }
+  } catch (error) {
+    console.error('Error fetching owner:', error);
   }
-  const handleregister = () => {
-    setAuth("register")
-  }
+};
 
+useEffect(()=>{
+  fetchOwner()
+})
   return (
     <div className="">
-      <div className="mt-5 text-center w-full items-center font-bold">
-        <button onClick={handlelogin} className="p-3 m-3 bg-white rounded-md border-2 border-black hover:bg-slate-100 focus:bg-slate-300">Sign-In</button>
-        <button onClick={handleregister} className="p-3 m-3 bg-white rounded-md border-2 border-black hover:bg-slate-100 focus:bg-slate-300">Sign-Up</button>
-      </div>
-      {auth === "register" && <Register />}
-      {auth === "login" && <Login />}
+      <Login />
     </div>
+    
   );
 }

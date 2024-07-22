@@ -73,7 +73,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
         </div>
         <button
           onClick={() => handleShowCreate()}
-          className="border border-black rounded-md p-2"
+          className="border border-slate-700 bg-white text-gray-800 hover:bg-orange-400 transition-colors duration-300 hover:text-white font-medium  rounded-lg p-2"
         >
           Create Class
         </button>
@@ -81,10 +81,9 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
       { type === "classification" && <div className="text-center text-red-500 font-bold">=== The Classification is in Maintenance, Cannot Create Class in This type now ===</div>}
       {typedata.map((type, index) => (
         <div key={type.class_id} className="flex pl-6 pr-6 space-x-4">
-          <div className=" bg-slate-300 m-2 p-2 rounded-md">{index + 1}</div>
+          <div className=" border m-2 p-2 rounded-full w-10 h-10 text-center">{index + 1}</div>
           <div
-            id="changetoinput"
-            className="flex-1 m-2 p-2 bg-slate-200 rounded-md"
+            className="flex-1 m-2 p-2 bg-white rounded-md"
           >
             {type.class_label}
           </div>
