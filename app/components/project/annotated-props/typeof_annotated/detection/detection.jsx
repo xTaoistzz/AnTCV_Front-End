@@ -74,6 +74,15 @@ function ImageWithBoundingBox({ idproject, iddetection, imageUrl }) {
           {
             widget: "TAG",
             vocabulary: vocabulary,
+            style: {
+              color: 'white',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '0.375rem', // Equivalent to rounded-md in Tailwind
+              padding: '0.5rem', // Equivalent to p-2 in Tailwind
+              margin: '0.5rem', // Equivalent to m-2 in Tailwind
+              fontSize: '0.875rem', // Equivalent to text-sm in Tailwind
+            },
           },
         ],
       });

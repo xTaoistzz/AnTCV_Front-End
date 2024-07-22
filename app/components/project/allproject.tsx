@@ -8,6 +8,14 @@ const ProjectApp: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [dropdownState, setDropdownState] = useState<{ [key: number]: boolean }>({});
 
+
+  const fetchImage = () => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -84,7 +92,7 @@ const ProjectApp: React.FC = () => {
         <div
           key={project.idproject}
           onClick={() => handleProject(project.idproject, project.project_name)}
-          className="grid grid-rows-5 space-y-3 border  p-4 rounded-md hover:bg-opacity-30 hover:bg-gradient-to-r from-orange-300 bg-orange-100 transition-colors duration-300 ease-in-out relative"
+          className="grid grid-rows-5 space-y-3 border  p-4 rounded-md hover:bg-opacity-30 hover:bg-gradient-to-r from-orange-300 bg-orange-200 transition-colors duration-300 ease-in-out relative shadow-lg"
         >
           <div
             className="row-span-3 border  rounded-md justify-center content-center text-center bg-white cursor-pointer "
