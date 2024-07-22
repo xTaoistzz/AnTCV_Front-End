@@ -100,6 +100,7 @@ export default function Annotate({ idproject }: IdType) {
 
   return (
     <div className="p-5">
+      { !activeUrl && <div className="text-gray-500">You're don't have images for Annotations, Please upload your images to use this features</div>}
       {type === "detection" && activeUrl && (
         <Detection
           idproject={idproject}

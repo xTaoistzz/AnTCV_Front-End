@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 const Menu = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -33,10 +32,10 @@ const Menu = () => {
   return (
     <div className="bg-white rounded-lg">
       <ul className="space-y-3">
-        <li>
+        <li className="space-y-2">
           <div className="bg-black h-28 rounded-lg"></div>
-          <div className="text-reght text-gray-500">{name}</div>
-          <div className="text-right text-gray-500">Type: {type}</div>
+          <div className="text-right text-gray-500">{name}</div>
+          <div className="text-right text-gray-500 capitalize">{type}</div>
           <button
             onClick={toggleDropdown}
             className="flex items-center justify-between w-full rounded-md p-2 hover:bg-gray-100 text-left focus:outline-none"
@@ -132,6 +131,14 @@ const Menu = () => {
             className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
           >
             Export
+          </button>
+        </li>
+        <li>
+        <button
+            onClick={() => setShow("Import")}
+            className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
+          >
+            Import
           </button>
         </li>
       </ul>

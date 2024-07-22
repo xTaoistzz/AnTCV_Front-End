@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-
+import Link from "next/link";
 const successMessage = "Register successful!";
 
 interface SuccessDialogProps {
@@ -21,7 +21,9 @@ export default function SuccessDialog({ isOpen, onClose }: SuccessDialogProps) {
           <button onClick={onClose} className="bg-gray-300 p-2 w-28">
             Close
           </button>
-          <button className="bg-gray-300 p-2 w-28">Sign-In</button>
+          <Link href="/auth/verifying">
+          <button className="bg-gray-300 p-2 w-28">Verification</button>
+          </Link>
         </div>
       </Modal>
     </div>

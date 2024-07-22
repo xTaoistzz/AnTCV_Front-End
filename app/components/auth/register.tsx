@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import SuccessDialog from "./registersuccess";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function RegisterA() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -11,13 +12,14 @@ export default function RegisterA() {
   const [password, setPassword] = useState("");
   const [conPassword, setConfirm] = useState("");
   const [msg, setMsg] = useState("");
+  const router = useRouter(); // Add useRouter hook
 
   const handleRegisterSuccess = () => {
     setShowSuccess(true);
-  };
-
-  const handleCloseSuccess = () => {
-    setShowSuccess(false);
+    setTimeout(() => {
+      setShowSuccess(false);
+      router.push("/auth/verifying"); // Redirect to /auth/verify page
+    }, 3000); // 3 seconds delay
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,10 +32,11 @@ export default function RegisterA() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        credentials:'include'
       });
       const data = await res.json();
       console.log(data);
-      if (data.type === "failed") {
+      if (data.type === "failed" || "") {
         setMsg(data.message);
       } else {
         handleRegisterSuccess();
@@ -116,12 +119,12 @@ export default function RegisterA() {
         <div className="text-center mt-3 flex flex-col text-sm space-y-2">
           <Link href="/auth">
             <button className=" text-gray-400 hover:text-gray-900">
-              You're already have an Account ? Sign-In
+              You're already have an Account? Sign-In
             </button>
           </Link>
         </div>
       </div>
-      <SuccessDialog isOpen={showSuccess} onClose={handleCloseSuccess} />
+      <SuccessDialog isOpen={showSuccess} onClose={() => setShowSuccess(false)} />
     </div>
   );
 }

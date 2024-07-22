@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import Login from "../components/auth/login";
 
 export default function Auth() {
-  const [owner, setOwner] = useState('');
 const [logtype,setType] = useState('')
 const router = useRouter()
 const fetchOwner = async () => {

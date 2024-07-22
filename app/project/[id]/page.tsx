@@ -6,6 +6,7 @@ import Classes from "@/app/components/project/class-props/classes";
 import Dropzone from "@/app/components/project/upload-props/upload";
 import Annotate from "@/app/components/project/annotated-props/annotated";
 import Export from "@/app/components/project/export/export";
+import Import from "@/app/components/project/import/import";
 
 interface ProjectProps {
   params: {
@@ -60,7 +61,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
       <div className="flex-auto bg-white p-4 rounded-lg">
         {/* Project Header */}
         <div className="font-bold text-lg mb-4 text-gray-600">
-          {project} / {show} / {type}
+        {show}
         </div>
         
         {/* Main Content Area */}
@@ -70,6 +71,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
           {show === "Upload" && <Dropzone idproject={params.id} />}
           {show === "Annotate" && <Annotate idproject={params.id} />}
           {show === "Export" && <Export idproject={params.id} />}
+          {show === "Import" && <Import idproject={params.id}/>}
         </div>
       </div>
     </div>
