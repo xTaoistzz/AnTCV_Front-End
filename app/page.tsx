@@ -1,5 +1,5 @@
 import ListGuest from "./components/navigation/Guest";
-
+import Link from "next/link";
 export default function Home() {
   return (
     <div>
@@ -103,12 +103,12 @@ export default function Home() {
             </ul>
           </div>
           <div className="mt-8 text-center">
-            <a
-              href="#"
+            <Link
+              href="/auth"
               className="bg-blue-600 text-white py-3 px-6 rounded-md shadow-md hover:bg-blue-700 transition duration-200 transform hover:scale-105"
             >
               Get Started
-            </a>
+            </Link>
           </div>
         </div>
       </div>

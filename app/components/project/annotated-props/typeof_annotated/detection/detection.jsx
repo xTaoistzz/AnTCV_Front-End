@@ -2,10 +2,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Annotorious } from "@recogito/annotorious";
 import "@recogito/annotorious/dist/annotorious.min.css";
-import Image from "next/image";
 
 function ImageWithBoundingBox({ idproject, iddetection, imageUrl }) {
-  const imgEl = useRef();
+  const imgEl = useRef(null);
   const [anno, setAnno] = useState(null);
   const [annotations, setAnnotations] = useState([]);
   const [vocabulary, setVocabulary] = useState([]);
@@ -200,11 +199,10 @@ function ImageWithBoundingBox({ idproject, iddetection, imageUrl }) {
 
   return (
     <div className="flex flex-col items-center p-4">
-      <div className="text-gray-500">
+      <div className="text-gray-500 mb-4">
         Draw some Bounding Box on images to add Label.
       </div>
-      
-      <div className="self-end mt-4">
+      <div className="self-end mb-4 flex gap-2">
         <button
           onClick={sendBoundingBoxToBackend}
           className="bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700"
@@ -212,14 +210,14 @@ function ImageWithBoundingBox({ idproject, iddetection, imageUrl }) {
           Save
         </button>
       </div>
-      <div className="relative" onMouseMove={handleMouseMove}>
+      <div className="relative max-w-full" style={{ maxWidth: "50vw" }} onMouseMove={handleMouseMove}>
         <img
           onLoad={fetchClassNames}
           ref={imgEl}
           src={imageUrl}
           alt="Annotated Image"
-          className="rounded shadow-md mb-4"
-          style={{ cursor: "crosshair", maxWidth: "100%", height: "auto" }}
+          className="rounded shadow-md mb-4 w-full h-auto"
+          style={{ cursor: "crosshair" }}
         />
         <div
           className="absolute left-0 top-0 w-full h-full pointer-events-none"

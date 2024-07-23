@@ -41,7 +41,7 @@ const Menu = () => {
             className="flex items-center justify-between w-full rounded-md p-2 hover:bg-gray-100 text-left focus:outline-none"
           >
             
-            <span>Edit Type</span>
+            <span className="font-normal text-gray-700">Change Type</span>
             <span className="ml-2">
               {dropdownVisible ? (
                 <svg
