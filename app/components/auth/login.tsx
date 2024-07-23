@@ -5,6 +5,7 @@ import SuccessDialog from "./loginsuccess";
 import Link from "next/link";
 
 export default function LoginA() {
+  const router = useRouter()
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -36,6 +37,9 @@ export default function LoginA() {
         setMsg(data.message);
       } else {
         handleLoginSuccess();
+        setTimeout(() => {
+          router.push("/project");
+        }, 2000); // 5000 milliseconds = 5 seconds
       }
     } catch (error) {
       console.error("Error Logging In: ", error);
@@ -95,10 +99,12 @@ export default function LoginA() {
             Don't have any account ? Sign-Up
           </button>
           </Link>
-          
+          <Link href="/auth/forget">          
           <button className="hover:text-gray-900 rounded-lg text-gray-400 text-sm">
             forget password?
           </button>
+          </Link>
+
         </div>
       </div>
       <SuccessDialog isOpen={showSuccess} onClose={handleCloseSuccess} />

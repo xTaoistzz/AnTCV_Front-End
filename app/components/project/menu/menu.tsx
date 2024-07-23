@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState,useEffect } from "react";
 
 const Menu = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const router = useRouter();
-
+  const [type, setType] = useState<string>('')
+  const [name,setName] = useState<string>('')
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const setType = (type: string) => {
+  const setAnno = (type: string) => {
     localStorage.setItem("Type", type);
     window.location.reload();
   };
@@ -24,16 +23,25 @@ const Menu = () => {
     window.location.reload();
   };
 
+  useEffect(()=>{
+    const type = localStorage.getItem("Type") || ''
+    const name = localStorage.getItem("Project_Name") || ''
+    setType(type)
+    setName(name)
+  })
   return (
     <div className="bg-white rounded-lg">
       <ul className="space-y-3">
-        <li>
+        <li className="space-y-2">
           <div className="bg-black h-28 rounded-lg"></div>
+          <div className="text-right text-gray-500">{name}</div>
+          <div className="text-right text-gray-500 capitalize">{type}</div>
           <button
             onClick={toggleDropdown}
             className="flex items-center justify-between w-full rounded-md p-2 hover:bg-gray-100 text-left focus:outline-none"
           >
-            <span>Annotation Type</span>
+            
+            <span className="font-normal text-gray-700">Change Type</span>
             <span className="ml-2">
               {dropdownVisible ? (
                 <svg
@@ -68,7 +76,7 @@ const Menu = () => {
             <ul className="pl-5 mt-2">
               <li className="pt-2">
                 <button
-                  onClick={() => setType("classification")}
+                  onClick={() => setAnno("classification")}
                   className="text-gray-800 hover:text-blue-500 focus:outline-none"
                 >
                   Classification
@@ -76,7 +84,7 @@ const Menu = () => {
               </li>
               <li className="pt-2">
                 <button
-                  onClick={() => setType("detection")}
+                  onClick={() => setAnno("detection")}
                   className="text-gray-800 hover:text-blue-500 focus:outline-none"
                 >
                   Detection
@@ -84,7 +92,7 @@ const Menu = () => {
               </li>
               <li className="pt-2">
                 <button
-                  onClick={() => setType("segmentation")}
+                  onClick={() => setAnno("segmentation")}
                   className="text-gray-800 hover:text-blue-500 focus:outline-none"
                 >
                   Segmentation
@@ -123,6 +131,14 @@ const Menu = () => {
             className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
           >
             Export
+          </button>
+        </li>
+        <li>
+        <button
+            onClick={() => setShow("Import")}
+            className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
+          >
+            Import
           </button>
         </li>
       </ul>

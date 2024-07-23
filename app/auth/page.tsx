@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation";
 import Login from "../components/auth/login";
 
 export default function Auth() {
-  const [owner, setOwner] = useState('');
-
+const [logtype,setType] = useState('')
 const router = useRouter()
 const fetchOwner = async () => {
   try {
     const res = await fetch(`${process.env.ORIGIN_URL}/returnUsername`, { credentials: 'include' });
-    if(res.ok) {
+    const type = await res.json()
+    setType(type.type)
+    if(logtype==='success') {
       router.push('/project')
     }
   } catch (error) {
@@ -23,8 +24,9 @@ useEffect(()=>{
 })
   return (
     <div className="">
-      <Login />
+      {
+        logtype==='error' && <div><Login/></div>
+      }
     </div>
-    
   );
 }

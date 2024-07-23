@@ -163,6 +163,9 @@ function ImageWithPolygon({ idproject, idsegmentation, imageUrl }) {
 
   return (
     <div className="flex flex-col items-center p-4">
+            <div className="text-gray-500">
+        Draw some Polygon on images to add Label.
+      </div>
       <div className="self-end mt-4">
         <button
           onClick={sendPolygonToBackend}
