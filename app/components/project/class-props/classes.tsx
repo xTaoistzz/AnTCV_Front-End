@@ -13,6 +13,7 @@ interface ProjectProps {
 interface Label {
   class_id: string;
   class_label: string;
+  class_index: number;
 }
 
 const Classes: React.FC<ProjectProps> = ({ params }) => {
@@ -50,7 +51,19 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
           { credentials: "include" }
         );
         const data = await res.json();
-        setTypedata(data.label);
+        
+        // เปลี่ยนชื่อ getAllClass เป็น label
+        const renamedData = {
+          ...data,
+          label: data.getAllClass ?? []
+        };
+
+        if (type === 'classification') {
+          setTypedata(renamedData.strClass ?? []);
+        } else {
+          setTypedata(renamedData.label ?? []);
+        }
+        console.log(renamedData);
       }
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -70,7 +83,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
           credentials: "include",
         }
       );
-      const data = res.json();
+      const data = await res.json();
       fetchClass();
     } catch (error) {
       console.error("Error deleting class:", error);
@@ -101,7 +114,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
     <>
       <div className="flex m-5 justify-between border-b border-slate-400 pb-4">
         <div className="text-l content-center">
-          Classes: {typedata.length}
+          Class : {typedata.length}
         </div>
         <button
           onClick={handleShowCreate}
@@ -110,13 +123,17 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
           Create Class
         </button>
       </div>
-      {type === "classification" && (
-        <div className="text-center text-red-400 font-normal">
-          === The Classification is in Maintenance, Cannot Create Class in This
-          type now ===
-        </div>
-      )}
-      {typedata.map((type, index) => (
+      {type === "classification" && typedata.map((type, index) => (
+        <button key={type.class_id} className="flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors">
+          <div className="border m-2 p-2 rounded-full w-10 h-10 text-center bg-white">
+            {index + 1}
+          </div>
+          <div className="m-2 p-2">
+            {type.class_label}
+          </div>
+        </button>
+      )) }
+      {(type === "detection" || type === "segmentation") && typedata.map((type, index) => (
         <div key={type.class_id} className="flex pl-6 pr-6 space-x-4">
           <div className="border m-2 p-2 rounded-full w-10 h-10 text-center">
             {index + 1}
