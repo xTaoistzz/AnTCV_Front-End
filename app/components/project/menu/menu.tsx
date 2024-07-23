@@ -109,7 +109,7 @@ const Menu = () => {
             Classes
           </button>
         </li>
-        <li>
+       {type != "classification" && (<div> <li>
           <button
             onClick={() => setShow("Upload")}
             className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
@@ -124,7 +124,7 @@ const Menu = () => {
           >
             Annotate
           </button>
-        </li>
+        </li></div>) }
         <li>
           <button
             onClick={() => setShow("Export")}

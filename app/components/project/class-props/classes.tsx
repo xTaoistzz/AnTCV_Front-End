@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import ClassCreate from "./create";
@@ -15,7 +13,7 @@ interface ProjectProps {
 interface Label {
   class_id: string;
   class_label: string;
-  class_index: number;
+  class_index: string;
 }
 
 const Classes: React.FC<ProjectProps> = ({ params }) => {
@@ -125,11 +123,15 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
     //   return;
     // }
 
+    const selectedClass = typedata.find(type => type.class_index === selectedClassId);
+    const classIndex = selectedClass ? selectedClass.class_index : 0;
+
     const formData = new FormData();
     selectedFiles.forEach((file) => {
       formData.append("image", file);
     });
     formData.append("idproject", params.id);
+    formData.append("index", classIndex.toString());
 
     try {
       const res = await fetch(`${process.env.ORIGIN_URL}/classification/uploadImage`, {
@@ -180,13 +182,25 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
-  const toggleDropzone = (class_id: string) => {
-    setDropzoneVisibility((prevVisibility) => ({
-      ...prevVisibility,
-      [class_id]: !prevVisibility[class_id]
-    }));
+  const toggleDropzone = (class_index:string) => {
+    if (selectedClassId===class_index) {
+      setDropzoneVisibility((prevVisibility) => ({
+        ...prevVisibility,
+        [class_index]: !prevVisibility[class_index]
+      }));
+    } else {
+      setDropzoneVisibility((prevVisibility) => ({
+        ...prevVisibility,
+        [class_index]: prevVisibility[class_index]
+      }));
+    }
+    
   };
 
+
+  const selectIndex = (class_index:string) => {
+    setSelectedClassId(class_index)
+  }
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
@@ -203,8 +217,8 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
         </button>
       </div>
       {type === "classification" && typedata.map((type, index) => (
-        <div key={type.class_id} className="mb-4">
-          <div className={`flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors ${selectedClassId === type.class_id ? "bg-orange-200" : ""}`}>
+        <div key={type.class_index} className="mb-4">
+          <div onClick={()=>selectIndex(type.class_index)} className={`flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors ${selectedClassId === type.class_index ? "bg-orange-200" : ""}`}>
             <div className="border m-2 p-2 rounded-full w-10 h-10 text-center bg-white">
               {index + 1}
             </div>
@@ -212,13 +226,13 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
               {type.class_label}
             </div>
             <button
-              onClick={() => toggleDropzone(type.class_id)}
+              onClick={() => toggleDropzone(type.class_index)}
               className="border border-gray-400 bg-white text-gray-800 hover:bg-blue-400 transition-colors duration-300 hover:text-white font-normal rounded-lg p-2"
             >
-              {dropzoneVisibility[type.class_id] ? "Hide Upload" : "Upload Images"}
+              { dropzoneVisibility[type.class_index] } Upload Images
             </button>
           </div>
-          {dropzoneVisibility[type.class_id] && (
+          { dropzoneVisibility && selectedClassId === type.class_index &&  (
             <div className="flex flex-col items-center justify-center p-6 border rounded-lg bg-gray-100 mt-4">
               {successMessage && (
                 <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
@@ -288,7 +302,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
           )}
         </div>
       ))}
-<ClassCreate isOpen={showCreate} onClose={handleCloseCreate} idproject={params.id} />
+      <ClassCreate isOpen={showCreate} onClose={handleCloseCreate} idproject={params.id} />
       {renameClassId && (
         <ClassRename
           isOpen={showRename}
