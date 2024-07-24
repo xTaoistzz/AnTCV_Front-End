@@ -73,6 +73,34 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
     }
   }, [params.id, type]);
 
+
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Function to load images from localStorage
+    const loadImages = () => {
+      const storedImages = localStorage.getItem('displayimage');
+      if (storedImages) {
+        setImages(JSON.parse(storedImages));
+      }
+    };
+
+    // Load images on mount
+    loadImages();
+
+    // Add event listener to update images when localStorage changes
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'displayimage') {
+        loadImages();
+      }
+    });
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('storage', () => loadImages());
+    };
+  }, []);
+
   useEffect(() => {
     fetchClass();
   }, [fetchClass]);
@@ -182,8 +210,8 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
-  const toggleDropzone = (class_index:string) => {
-    if (selectedClassId===class_index) {
+  const toggleDropzone = (class_index: string) => {
+    if (selectedClassId === class_index) {
       setDropzoneVisibility((prevVisibility) => ({
         ...prevVisibility,
         [class_index]: !prevVisibility[class_index]
@@ -194,11 +222,11 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
         [class_index]: prevVisibility[class_index]
       }));
     }
-    
+
   };
 
 
-  const selectIndex = (class_index:string) => {
+  const selectIndex = (class_index: string) => {
     setSelectedClassId(class_index)
   }
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -218,7 +246,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
       </div>
       {type === "classification" && typedata.map((type, index) => (
         <div key={type.class_index} className="mb-4">
-          <div onClick={()=>selectIndex(type.class_index)} className={`flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors ${selectedClassId === type.class_index ? "bg-orange-200" : ""}`}>
+          <div onClick={() => selectIndex(type.class_index)} className={`flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors ${selectedClassId === type.class_index ? "bg-orange-200" : ""}`}>
             <div className="border m-2 p-2 rounded-full w-10 h-10 text-center bg-white">
               {index + 1}
             </div>
@@ -229,10 +257,33 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
               onClick={() => toggleDropzone(type.class_index)}
               className="border border-gray-400 bg-white text-gray-800 hover:bg-blue-400 transition-colors duration-300 hover:text-white font-normal rounded-lg p-2"
             >
-              { dropzoneVisibility[type.class_index] } Upload Images
+              {dropzoneVisibility[type.class_index]} Upload Images
             </button>
           </div>
-          { dropzoneVisibility && selectedClassId === type.class_index &&  (
+
+          { index == 0 && (
+            <div>found {images.length} images</div>
+          )}   
+
+          {images.length > 0 && index == 0 && (
+            
+            <ul className="flex flex-wrap -m-1">
+            {images.map((url, index) => (
+              <li  key={index} className="flex-none w-1/6 p-1">
+                <img
+                  src={process.env.ORIGIN_URL+'/img/'+params.id+'/classification/'+type.class_index+'/'+url}
+                  alt={`Image ${index}`}
+                  width={100}
+                  height={100}
+                  sizes="100vw"
+                  className="w-full h-auto" />
+              </li>
+            ))
+          }
+          </ul>
+           )}
+
+          {dropzoneVisibility && selectedClassId === type.class_index && (
             <div className="flex flex-col items-center justify-center p-6 border rounded-lg bg-gray-100 mt-4">
               {successMessage && (
                 <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">

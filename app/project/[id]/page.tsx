@@ -7,6 +7,7 @@ import Dropzone from "@/app/components/project/upload-props/upload";
 import Annotate from "@/app/components/project/annotated-props/annotated";
 import Export from "@/app/components/project/export/export";
 import Import from "@/app/components/project/import/import";
+import Gallery from "@/app/components/project/gallery";
 
 interface ProjectProps {
   params: {
@@ -26,8 +27,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
   };
 
   const getGallery = () => {
-    const gallery = localStorage.getItem("Gallery");
-    setActive(gallery === "active");
+    // setActive(gallery === "active");
   };
 
   useEffect(() => {
@@ -37,7 +37,8 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
     setType(localType ?? "");
     setProject(ProjName ?? "");
     setShow(Show ?? "");
-    getGallery();
+    // getGallery();
+    
   }, []);
 
   return (
@@ -67,7 +68,8 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
         {/* Main Content Area */}
         <div className=" min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto bg-opacity-50">
           {/* Conditional Rendering based on 'show' state */}
-          {show === "Classes" && <Classes params={params} />}
+          {show === "Classes" && <Gallery idproject={params.id} class_id={'0'} />}
+          {show === "Classes" && <Classes params={params} /> }
           {show === "Upload" && <Dropzone idproject={params.id} />}
           {show === "Annotate" && <Annotate idproject={params.id} />}
           {show === "Export" && <Export idproject={params.id} />}

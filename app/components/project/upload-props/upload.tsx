@@ -111,12 +111,17 @@ const Dropzone: React.FC<ProjectProps> = ({ idproject }) => {
         className="border-4 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer m-6 hover:border-blue-600 transition duration-200 ease-in-out"
         {...getRootProps()}
       >
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p className="text-gray-500">Drop the files here ...</p>
-        ) : (
-          <p className="text-gray-500">Drag and drop some files here, or click to select files</p>
-        )}
+        {/* {isAddImage ?( */}
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p className="text-gray-500">Drop the files here ...</p>
+          ) : (
+            <p className="text-gray-500">Drag and drop some files here, or click to select files</p>
+          )}
+        {/* ):(
+
+        )} */}
+        
       </div>
       <div className="grid grid-cols-4 gap-4 m-5">
         {getCurrentPageFiles().map((file, index) => (
