@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Menu from "@/app/components/project/menu/menu";
 import Classes from "@/app/components/project/class-props/classes";
+import ClassesCls from "@/app/components/project/class-props/classes_cls";
 import Dropzone from "@/app/components/project/upload-props/upload";
 import Annotate from "@/app/components/project/annotated-props/annotated";
 import Export from "@/app/components/project/export/export";
@@ -27,7 +28,8 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
   };
 
   const getGallery = () => {
-    // setActive(gallery === "active");
+    const gallery = localStorage.getItem("Gallery");
+     setActive(gallery === "active");
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
     setType(localType ?? "");
     setProject(ProjName ?? "");
     setShow(Show ?? "");
-    // getGallery();
+    getGallery();
     
   }, []);
 
@@ -69,7 +71,8 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
         <div className=" min-h-screen md:min-h-0 rounded-md border border-gray-300 p-3 overflow-auto bg-opacity-50">
           {/* Conditional Rendering based on 'show' state */}
           {show === "Classes" && <Gallery idproject={params.id} class_id={'0'} />}
-          {show === "Classes" && <Classes params={params} /> }
+          {show === "Classes" && type !== "classification" && <Classes params={params} /> }
+          {show === "Classes" && type === "classification" && <ClassesCls params={params} /> }
           {show === "Upload" && <Dropzone idproject={params.id} />}
           {show === "Annotate" && <Annotate idproject={params.id} />}
           {show === "Export" && <Export idproject={params.id} />}
