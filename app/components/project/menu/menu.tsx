@@ -1,9 +1,16 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { HiMiniPhoto } from "react-icons/hi2"; // Import the icon
 
-const Menu = () => {
+interface MenuProps {
+  idproject: string;
+}
+
+const Menu: React.FC<MenuProps> = ({ idproject }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [type, setType] = useState<string>('')
-  const [name,setName] = useState<string>('')
+  const [type, setType] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [first, setFirst] = useState<string>("");
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
@@ -23,24 +30,62 @@ const Menu = () => {
     window.location.reload();
   };
 
-  useEffect(()=>{
-    const type = localStorage.getItem("Type") || ''
-    const name = localStorage.getItem("Project_Name") || ''
-    setType(type)
-    setName(name)
-  })
+  const firstImg = async () => {
+    try {
+      const response = await fetch(`${process.env.ORIGIN_URL}/getImg`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idproject }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const img = await response.json();
+      setFirst(img.imgName);
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
+
+  useEffect(() => {
+    const type = localStorage.getItem("Type") || "";
+    const name = localStorage.getItem("Project_Name") || "";
+    firstImg();
+    setType(type);
+    setName(name);
+  }, [idproject]);
+
   return (
     <div className="bg-white rounded-lg">
       <ul className="space-y-3">
+        <li>
+          <div className="">
+            {first ? (
+              <img
+                src={`${process.env.ORIGIN_URL}/img/${idproject}/thumbs/${first}`}
+                width={150}
+                height={150}
+                className="rounded-lg shadow-lg h-auto object-cover cursor-pointer border-2"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-[150px] h-[150px] rounded-lg shadow-lg border-2">
+                <HiMiniPhoto className="text-gray-500" size={50} /> {/* Larger icon */}
+              </div>
+            )}
+          </div>
+        </li>
         <li className="space-y-2">
-          <div className="bg-black h-28 rounded-lg"></div>
           <div className="text-right text-gray-500">{name}</div>
           <div className="text-right text-gray-500 capitalize">{type}</div>
           <button
             onClick={toggleDropdown}
             className="flex items-center justify-between w-full rounded-md p-2 hover:bg-gray-100 text-left focus:outline-none"
           >
-            
             <span className="font-normal text-gray-700">Change Type</span>
             <span className="ml-2">
               {dropdownVisible ? (
@@ -109,22 +154,26 @@ const Menu = () => {
             Classes
           </button>
         </li>
-       {type != "classification" && (<div> <li>
-          <button
-            onClick={() => setShow("Upload")}
-            className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
-          >
-            Upload
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => setShow("Annotate")}
-            className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
-          >
-            Annotate
-          </button>
-        </li></div>) }
+        {type !== "classification" && (
+          <div>
+            <li>
+              <button
+                onClick={() => setShow("Upload")}
+                className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
+              >
+                Upload
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => setShow("Annotate")}
+                className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
+              >
+                Annotate
+              </button>
+            </li>
+          </div>
+        )}
         <li>
           <button
             onClick={() => setShow("Export")}
@@ -134,7 +183,7 @@ const Menu = () => {
           </button>
         </li>
         <li>
-        <button
+          <button
             onClick={() => setShow("Import")}
             className="rounded-md p-2 hover:bg-gray-100 w-full text-left focus:outline-none"
           >

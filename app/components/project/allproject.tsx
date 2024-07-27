@@ -2,20 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Project, ProjectResponse } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { AiFillSetting } from "react-icons/ai";
+import { HiMiniPhoto } from "react-icons/hi2";
 
 const ProjectApp: React.FC = () => {
   const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
   const [dropdownState, setDropdownState] = useState<{ [key: number]: boolean }>({});
+  const [firstImgMap, setFirstImgMap] = useState<{ [key: number]: string }>({});
 
-
-  const fetchImage = () => {
-    try {
-      
-    } catch (error) {
-      
-    }
-  }
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -24,7 +18,6 @@ const ProjectApp: React.FC = () => {
         });
         const data: ProjectResponse = await res.json();
         setProjects(data.project);
-        console.log(data.project);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -32,6 +25,36 @@ const ProjectApp: React.FC = () => {
 
     fetchProjects();
   }, []);
+
+  useEffect(() => {
+    const fetchFirstImages = async () => {
+      const imgMap: { [key: number]: string } = {};
+      for (const project of projects) {
+        try {
+          const response = await fetch(`${process.env.ORIGIN_URL}/getImg`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ idproject: project.idproject }),
+            credentials: "include",
+          });
+
+          if (response.ok) {
+            const img = await response.json();
+            imgMap[project.idproject] = img.imgName; // Assuming the response contains the image name as imgName
+          }
+        } catch (error) {
+          console.error(`Error fetching image for project ${project.idproject}:`, error);
+        }
+      }
+      setFirstImgMap(imgMap);
+    };
+
+    if (projects.length > 0) {
+      fetchFirstImages();
+    }
+  }, [projects]);
 
   const handleProject = (id: any, name: any) => {
     router.push(`/project/${id}`);
@@ -72,7 +95,7 @@ const ProjectApp: React.FC = () => {
           prevProjects.filter((project) => project.idproject !== idproject)
         );
         console.log(`Project with id ${idproject} deleted successfully.`);
-        window.location.reload()
+        window.location.reload();
       } else {
         console.error(`Failed to delete project with id ${idproject}.`);
       }
@@ -92,12 +115,20 @@ const ProjectApp: React.FC = () => {
         <div
           key={project.idproject}
           onClick={() => handleProject(project.idproject, project.project_name)}
-          className="grid grid-rows-5 space-y-3 border  p-4 rounded-md hover:bg-opacity-30 hover:bg-gradient-to-r from-orange-300 bg-orange-200 transition-colors duration-300 ease-in-out relative shadow-lg"
+          className="grid grid-rows-5 space-y-3 border p-4 rounded-md hover:bg-opacity-30 hover:bg-gradient-to-r from-orange-300 bg-orange-200 transition-colors duration-300 ease-in-out relative shadow-lg"
         >
           <div
-            className="row-span-3 border  rounded-md justify-center content-center text-center bg-white cursor-pointer "
+            className="row-span-3 border rounded-md flex justify-center items-center bg-white cursor-pointer"
           >
-            Image Section
+            {firstImgMap[project.idproject] ? (
+              <img
+                src={`${process.env.ORIGIN_URL}/img/${project.idproject}/thumbs/${firstImgMap[project.idproject]}`}
+                alt="First Image"
+                className="rounded-lg shadow-lg h-auto object-cover"
+              />
+            ) : (
+              <HiMiniPhoto className="text-8xl text-gray-400" />
+            )}
           </div>
           <div className="font-extrabold m-1">{project.project_name}</div>
           <div className="text-gray-800 m-1">{project.description}</div>
@@ -105,7 +136,7 @@ const ProjectApp: React.FC = () => {
             <button
               onClick={(e) => handleOptionClick(e, project.idproject)}
               id={`Option-${project.idproject}`}
-              className="object-none border  mb-2 p-2 rounded-md bg-white cursor-pointer hover:bg-gray-900 text-xl hover:text-white"
+              className="object-none border mb-2 p-2 rounded-md bg-white cursor-pointer hover:bg-gray-900 text-xl hover:text-white"
             >
               <AiFillSetting />
             </button>

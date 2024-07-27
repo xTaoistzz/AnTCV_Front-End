@@ -22,7 +22,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
   const [show, setShow] = useState<string>("");
   const [menu, setMenu] = useState(true);
   const [active, setActive] = useState(false);
-
+  const idproject = params.id
   const toggleMenu = () => {
     setMenu(!menu);
   };
@@ -47,7 +47,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
     <div className="flex flex-col md:flex-row min-h-screen my-4">
       {/* Sidebar */}
       <aside className={` rounded-r-lg min-h-screen bg-white border border-gray-300 p-4 shadow-md ${menu ? "" : "hidden"}`}>
-        {menu && <Menu />}
+        {menu && <Menu idproject={idproject} />}
       </aside>
       
       {/* Toggle Menu Button (Absolute positioning for mobile, relative for desktop) */}
