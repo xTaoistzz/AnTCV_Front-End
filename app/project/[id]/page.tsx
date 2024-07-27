@@ -38,7 +38,7 @@ const ProjectByName: React.FC<ProjectProps> = ({ params }) => {
     const Show = localStorage.getItem("Show");
     setType(localType ?? "");
     setProject(ProjName ?? "");
-    setShow("Classes" ?? Show  );
+    setShow(Show ?? "Classes");
     getGallery();
     
   }, []);
