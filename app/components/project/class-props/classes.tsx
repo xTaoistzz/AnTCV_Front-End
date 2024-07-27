@@ -116,6 +116,7 @@ const Classes: React.FC<ProjectProps> = ({ params }) => {
           type now ===
         </div>
       )}
+      
       {typedata.map((type, index) => (
         <div key={type.class_id} className="flex pl-6 pr-6 space-x-4">
           <div className="border m-2 p-2 rounded-full w-10 h-10 text-center">

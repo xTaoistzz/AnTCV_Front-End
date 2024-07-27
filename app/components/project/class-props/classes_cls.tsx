@@ -79,15 +79,20 @@ const ClassesCls: React.FC<ProjectProps> = ({ params }) => {
 
 
   const [images, setImages] = useState<string[]>([]);
-
+  const loadImages = () => {
+    const storedImages = localStorage.getItem('displayimage');
+    if (storedImages) {
+      setImages(JSON.parse(storedImages));
+    }
+  };
   useEffect(() => {
     // Function to load images from localStorage
-    const loadImages = () => {
-      const storedImages = localStorage.getItem('displayimage');
-      if (storedImages) {
-        setImages(JSON.parse(storedImages));
-      }
-    };
+    // const loadImages = () => {
+    //   const storedImages = localStorage.getItem('displayimage');
+    //   if (storedImages) {
+    //     setImages(JSON.parse(storedImages));
+    //   }
+    // };
 
     // Load images on mount
     loadImages();
@@ -176,6 +181,8 @@ const ClassesCls: React.FC<ProjectProps> = ({ params }) => {
         setSelectedFiles([]);
         setSuccessMessage("Images uploaded successfully!");
         fetchClass();
+        loadImages()
+        window.location.reload()
       } else {
         console.error("Error uploading file");
       }
@@ -251,7 +258,7 @@ const ClassesCls: React.FC<ProjectProps> = ({ params }) => {
 
       { type === 'classification' && typedata.map((ctype, index) => (
         <div key={ctype.class_index} className="mb-4">
-          <div onClick={() => selectIndex(ctype.class_index)} className={`flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors ${selectedClassId === type.class_index ? "bg-orange-200" : ""}`}>
+          <div onClick={() => selectIndex(ctype.class_index)} className={`flex pl-6 pr-6 space-x-4 hover:bg-orange-300 w-full text-left bg-opacity-50 rounded-2xl transition-colors ${selectedClassId === ctype.class_index ? "bg-orange-200" : ""}`}>
             <div className="border m-2 p-2 rounded-full w-10 h-10 text-center bg-white">
               {index + 1}
             </div>
@@ -288,7 +295,7 @@ const ClassesCls: React.FC<ProjectProps> = ({ params }) => {
           </ul>
            )}
 
-          {dropzoneVisibility && selectedClassId === type.class_index && (
+          {dropzoneVisibility && selectedClassId === ctype.class_index && (
             <div className="flex flex-col items-center justify-center p-6 border rounded-lg bg-gray-100 mt-4">
               {successMessage && (
                 <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
