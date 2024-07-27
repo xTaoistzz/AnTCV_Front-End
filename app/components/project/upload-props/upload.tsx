@@ -38,7 +38,7 @@ const Dropzone: React.FC<ProjectProps> = ({ idproject }) => {
 
     const formData = new FormData();
     selectedFiles.forEach((file) => {
-      formData.append("files", file);
+      formData.append("image", file);
     });
     formData.append("idproject", idproject);
     formData.append("type", type);
