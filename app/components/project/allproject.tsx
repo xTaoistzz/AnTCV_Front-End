@@ -124,7 +124,7 @@ const ProjectApp: React.FC = () => {
               <img
                 src={`${process.env.ORIGIN_URL}/img/${project.idproject}/thumbs/${firstImgMap[project.idproject]}`}
                 alt="First Image"
-                className="rounded-lg shadow-lg h-auto object-cover"
+                className="rounded-lg shadow-lg h-auto object-cover blur-sm hover:blur-none transition-all"
               />
             ) : (
               <HiMiniPhoto className="text-8xl text-gray-400" />
