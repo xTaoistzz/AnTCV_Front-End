@@ -20,8 +20,8 @@ const Menu: React.FC<MenuProps> = ({ idproject }) => {
     window.location.reload();
   };
 
-  const setShow = (show: string) => {
-    localStorage.setItem("Show", show);
+  const setShow = (show: string ) => {
+    localStorage.setItem("Show",show)
     if (show === "Annotate") {
       localStorage.setItem("Gallery", "active");
     } else {
@@ -58,7 +58,7 @@ const Menu: React.FC<MenuProps> = ({ idproject }) => {
     firstImg();
     setType(type);
     setName(name);
-  }, [idproject]);
+  });
 
   return (
     <div className="bg-white rounded-lg">

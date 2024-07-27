@@ -27,6 +27,7 @@ const ProjectApp: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    // localStorage.clear()
     const fetchFirstImages = async () => {
       const imgMap: { [key: number]: string } = {};
       for (const project of projects) {
