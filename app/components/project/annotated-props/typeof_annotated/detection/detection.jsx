@@ -155,6 +155,10 @@ function ImageWithBoundingBox({ idproject, iddetection, imageUrl }) {
     }
   }, [anno, iddetection]); // Added iddetection to the dependency array
 
+  const autofetch = () => {
+    fetchClassNames()
+    fetchBoundingBoxes()
+  }
   const sendBoundingBoxToBackend = async () => {
     const dataToSend = {
       idproject: idproject,
@@ -212,7 +216,7 @@ function ImageWithBoundingBox({ idproject, iddetection, imageUrl }) {
       </div>
       <div className="relative max-w-full" style={{ maxWidth: "50vw" }} onMouseMove={handleMouseMove}>
         <img
-          onLoad={fetchClassNames}
+          onLoad={autofetch}
           ref={imgEl}
           src={imageUrl}
           alt="Annotated Image"

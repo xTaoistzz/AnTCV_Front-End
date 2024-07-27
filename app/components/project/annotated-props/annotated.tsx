@@ -34,14 +34,17 @@ export default function Annotate({ idproject }: IdType) {
         credentials: "include",
       });
       const alldata = await res.json();
+      console.log(alldata)
       if (type === "detection") {
         setAllData(alldata.detection);
+        localStorage.setItem("idDetection",alldata.detection[0].iddetection)
         const urls = alldata.detection.map(
           (img: ImageData) => `${process.env.ORIGIN_URL}/img/${idproject}/thumbs/${img.image_path}`
         );
         setUrl(urls);
       } else if (type === "segmentation") {
         setAllData(alldata.segmentation);
+        localStorage.setItem("idSegmentation",alldata.segmentation[0].idsegmentation)
         const urls = alldata.segmentation.map(
           (img: ImageData) => `${process.env.ORIGIN_URL}/img/${idproject}/thumbs/${img.image_path}`
         );
