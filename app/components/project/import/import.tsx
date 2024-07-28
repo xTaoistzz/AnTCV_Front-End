@@ -25,7 +25,7 @@ const Import: React.FC<ProjectProps> = ({ idproject }) => {
         formData.append('idproject', idproject);
 
         try {
-            const response = await fetch(`${process.env.ORIGIN_URL}/import/detection/YOLO`, {
+            const response = await fetch(`${process.env.ORIGIN_URL}/import/${type}/YOLO`, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
